@@ -1,0 +1,38 @@
+\makeatletter
+\thispagestyle{empty}
+\sffamily
+\newsavebox{\institute}%
+%\sbox{\institute}{ Faculty of Mathematics and Physics}
+\setlength{\unitlength}{1cm}%
+\begin{picture}(0,1)
+  \put(-0.5,0){\includegraphics[height=1.4cm]{logos/ethLogo}}
+  \put(0.18,-.4){\usebox{\institute}}%
+  \put(7.8,-0.3){\includegraphics[height=2.9cm]{logos/foot_unilogo}}
+\end{picture}%
+% 
+\vfill
+\begin{center}
+  {\huge \ignorespaces\@title \par}
+  \vspace{0.8\baselineskip}
+
+  {\LARGE \ignorespaces\@subtitle \par}
+  \vspace{4\baselineskip}
+ 
+ 
+  {\LARGE{After a lecture by H.J. Herrmann} \par}
+  \vspace{3\baselineskip}
+  { \Large written by \par
+    \vspace{.3\baselineskip}}
+  { \LARGE \@author \par}
+  
+  \ifdefined\@date
+  \vspace{3\baselineskip}
+  {\LARGE \@date}
+  \fi
+\end{center}
+\vfill
+\begin{center}
+ % {\Large Supervisor\par}
+ % {\LARGE Prof. Dr. Oskar von der Lühe\par}
+\end{center}
+\makeatother

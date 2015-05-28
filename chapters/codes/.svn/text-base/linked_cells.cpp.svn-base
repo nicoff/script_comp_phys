@@ -1,0 +1,10 @@
+// Program to go through all particles in cell i=2
+
+
+M[1] = FIRST[i];
+
+i=2;
+while(M[i-1]!=0){
+
+	M[j]=LIST[M[j-1]];
+}

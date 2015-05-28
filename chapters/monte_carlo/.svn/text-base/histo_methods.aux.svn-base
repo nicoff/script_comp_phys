@@ -1,0 +1,47 @@
+\relax 
+\citation{salzburg}
+\citation{oliveira}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Histogram Methods}{28}{section.1.5}}
+\newlabel{eq:part_fun_over_energy}{{1.37}{28}{Histogram Methods\relax }{equation.1.5.37}{}}
+\newlabel{eq:histo_average}{{1.38}{28}{Histogram Methods\relax }{equation.1.5.38}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.1}Broad Histogram Method}{28}{subsection.1.5.1}}
+\newlabel{eq:detailed_balance_broad_histo}{{1.39}{29}{Broad Histogram Method\relax }{equation.1.5.39}{}}
+\newlabel{fig:broad_histo_1}{{1.5.1}{29}{Broad Histogram Method\relax }{equation.1.5.40}{}}
+\newlabel{fig:broad_histo_2}{{1.5.1}{29}{Broad Histogram Method\relax }{equation.1.5.40}{}}
+\citation{torrie}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.18}{\ignorespaces \relax \fontsize  {10.85881pt}{13.03053pt}\selectfont  \par@update \abovedisplayskip 10.85881pt plus 2.71469pt minus 6.29813pt\abovedisplayshortskip 0.0pt plus 2.71469pt\belowdisplayskip 10.85881pt plus 2.71469pt minus 6.29813pt\belowdisplayshortskip 5.97237pt plus 3.25768pt minus 2.71469pt\let \leftmargin \leftmargini \topsep 9.91623pt plus 3.96623pt minus 5.95pt\parsep 4.95874pt plus 2.47873pt minus 1.0pt\itemsep \parsep \leftmargin \leftmargini \topsep 8.92499pt plus 2.97499pt minus 4.95839pt\parsep 4.4625pt plus 1.98338pt minus 1.0pt\itemsep \parsep \add@extra@listi {sml}The continuous line is the analytic solution of the specific heat for a 32x32 lattice. The crosses represents the result of the BHMC and the circles are the result for the usual histogram.}}{30}{figure.1.18}}
+\newlabel{fig:broad_histo_3}{{1.18}{30}{\small The continuous line is the analytic solution of the specific heat for a 32x32 lattice. The crosses represents the result of the BHMC and the circles are the result for the usual histogram}{figure.1.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.2}Flat Histogram Method}{30}{subsection.1.5.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.3}Umbrella sampling}{31}{subsection.1.5.3}}
+\newlabel{eq:torrie}{{1.41}{31}{Umbrella sampling\relax }{equation.1.5.41}{}}
+\@setckpt{chapters/statistical_mechanics/histo_methods}{
+\setcounter{page}{32}
+\setcounter{equation}{41}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{5}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{1}
+\setcounter{section}{5}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{18}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{1}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{6}
+\setcounter{bookmark@seq@number}{21}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

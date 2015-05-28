@@ -1,0 +1,45 @@
+\relax 
+\citation{sim_liq}
+\citation{alder_first}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Molecular Dynamics}{45}{chapter.3}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lol}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Introduction}{45}{section.3.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Equations of Motion}{46}{section.3.2}}
+\citation{comp_phys}
+\newlabel{fig:lennard jones}{{3.2}{47}{Repulsive and attraction potentials:\relax }{section*.29}{}}
+\newlabel{newt_MD_eq}{{3.1}{47}{Equation of motions:\relax }{equation.3.2.1}{}}
+\citation{comp_phys}
+\newlabel{eq:contact_time}{{3.2}{48}{Contact time:\relax }{equation.3.2.2}{}}
+\@setckpt{chapters/molecular_dynamics/introduction}{
+\setcounter{page}{49}
+\setcounter{equation}{2}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{2}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{7}
+\setcounter{bookmark@seq@number}{30}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{1}
+}

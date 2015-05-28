@@ -1,0 +1,48 @@
+
+
+\chapter{Parallelization}
+\label{chap:parallelization}
+
+In this short Chapter we will briefly discuss the main methods for making computations faster in a very general way. Parallelization can lead to an improvement of the computation time of up to entire orders of magnitude! The easiest way to parallelize is by \emph{farming}: brutally dividing the same calculations on many different computers/processors. This can be very easy to program in situations like Monte Carlo, where one has to repeat the exact same sequence of operations as many time as possible. Of course, this is mostly not regarded as parallelization.  Already with some very basic knowledge of computer architecture there is the possibility of drastically improving the efficiency of the programs.  Two ways to parallelize, which imply a little deeper understanding of how a computer works, are presented in the chapter (\textbf{multi-spin coding} and \textbf{vectorization}). The chapter is obviously not exhaustive, and for the interested reader dedicated lectures are recommended.
+
+
+\section{Multi Spin Coding}
+
+Multi spin coding is a technique to reduce the computational time of a program. It is very useful whenever dealing with single bit variables or integers limited to a certain value. The idea is based on the fact that on a 64 bit system, not all the bits are used for storing and/or for computations. In the case of the Ising model, we are dealing with spins that can only assume two values $\sigma \in \mkl{\pm 1}$. This means that storing and calculating our site values into 64 bit integers is not only a waste of memory, but also a waste of computation time since most of the bits are not carrying any information. In a cubic lattice, the local field can only assume values $h_i \in\mkl{0, \pm 2, \pm 4, \pm 6} $, for a total of $7$ possible values. 3 bits\footnote{In binary code you can represent up to 8 different numbers with 3 digits} would then be enough to cover all possible local field values of any site $\sigma(i)$, while 61 bits remain unused. If we contemplate an integer variable E, with bit values $\delta \in \mkl{0,1}$,
+$$
+E_j = (\delta_1,...,\delta_{64})
+$$
+it is possible to use every three digits for the local field of a site i
+\begin{equation}
+E_j = (\delta_1,\underbrace{\delta_{2},\delta_{3},\delta_{4}}_{\sigma(i+20)},...,\underbrace{\delta_{62},\delta_{63},\delta_{64}}_{\sigma(1)})
+\end{equation} 
+And for the values of the spin on the sites we can use another integer N:
+\begin{equation}
+N_j = (\delta_1,...,\underbrace{0,0,\delta_{3i-2}}_{\sigma(i)},...,\underbrace{0,0,\delta_{1}}_{\sigma(1)})
+\end{equation} where the values of $\delta_{3i-2}$ defines the $i^{th}$ spin. This way, only one bit remains unused, instead of 63 (or 31, depending on the computer architecture). The price that one has to pay is that the system size is bounded to how we organize the storage of the variables in the words. This is because neighboring variables cannot be stored in the same word.  As mentioned before, besides a purely memory storage question, the main advantage is a much faster calculation. For this we will make use of bitwise logical functions XOR, AND and OR ($\oplus, \wedge$ and $\lor$). First, to extract the information out of an integer (the value of which will have no significant meaning!), we will define the \emph{mask}: $7 \equiv (0,...,0,1,1,1)$. This can be used to fetch the value out of the last three digits of an integer $N_j$, as defined before.
+\begin{equation}
+7\wedge N_j = (0,...,0,1,1,1) \wedge_{bitwise} (\delta_1,...,\delta_{62},\delta_{63},\delta_{64}) = (0,...0,\delta_{62},\delta_{63},\delta_{64})
+\label{eq:fetch}
+\end{equation}
+With the circular right shift operator (\emph{ror}) or the circular left shift operator (\emph{lor}) one can act a clockwise (or counter-clockwise) permutation of the bits stored in an integer variable
+\begin{equation}
+ror\ekl{(\delta_1,\delta_2,\delta_3,\delta_4,\delta_5),2} = (\delta_4,\delta_5,\delta_1,\delta_2,\delta_3)
+\label{eq:ror}
+\end{equation}
+
+
+Combining the two operations defined in equations \eqref{eq:fetch} and \eqref{eq:ror} allows us to fetch all the 21 sites or energy values stored in an integer. Similarly for the calculation of the energy, only one cycle is needed to calculate the energy of 21 sites:
+\begin{equation}
+E_j =N_j \oplus N_{right}  + N_j \oplus N_{left} +,...+,N_j \oplus N_{down}  
+\end{equation} 
+For an example of implementation in C/C++, see \ref{code:multi_spin}.
+
+
+
+
+
+
+
+
+
+

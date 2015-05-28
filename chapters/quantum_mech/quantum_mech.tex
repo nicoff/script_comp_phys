@@ -1,0 +1,263 @@
+\chapter{Quantum Mechanics}
+
+
+Apart from particle physics, one is generally not interested in single particles but in a system composed by many particles.  Since simulations in particle physics require the knowledge of some theories which are not necessarily known by the reader (e.g., QFT), we will here reduce the discussion to ``classical'' quantum mechanics. In quantum mechanics the laws of physics differ very much from the laws we usually make use of in the macroscopic world. Here we will introduce some concepts used for the simulation of such regimes. This is not a lecture on QM, but we will briefly mention the main concepts used in the simulation of quantum mechanical systems. \textbf{Wave functions} for particles are defined, as well as the time independent \textbf{ Schr\"odinger equation}.  Basic expansions and approximations (in particular, \textbf{Born-Oppenheimer} and \textbf{Kohn Sham}) follow the definitions and represent the core of the chapter. A quick overview of the \textbf{Car-Parrinello} method concludes this little excursus in the world of quantum mechanics.
+
+If the reader is not familiar with QM, dedicated lectures are necessary to fully understand what is done in this chapter. Should the reader be interested in some deeper insights in the simulation of quantum mechanical systems, there are lectures such as \emph{Computational Quantum Physics} that are also recommended as an integration of this course.
+
+\section{Introduction}
+
+Particles are described by complex \emph{wave functions}, usually denoted with $\psi$, which depend on time and space $t,\vec{r}$. The probability of finding a particle at some point in space and time is given by the absolute squared value of $\psi$:
+\begin{equation}
+\rho\kl{\vec{r},t} = \abs{\psi\kl{\vec{r},t}}^2 = \psi^*\kl{\vec{r},t}\psi\kl{\vec{r},t}.
+\end{equation}
+$\rho$ is called the \emph{probability density} and is a normalized function such that
+\begin{equation}
+\int \rho\kl{\vec{r},t} \text{d}\vec{r}\,\text{d}t = 1,
+\end{equation}
+i.e., the probability of finding a particle somewhere at some point in time is equal to 1. This does not generally mean that particles or composed objects (like the reader of this script) are likely to be found everywhere at random distances in space or time. Even though we very often use plane waves for a qualitative description of quantum mechanical effects, ``real'' wave functions can be localized more or less sharply (we speak of \emph{wave packages}). This means that wave functions (and in particular probability densities) converge fastly towards zero when we leave the coordinates of interest.
+
+
+These wave functions $\psi$ are eigenfunctions of the quantum mechanical \emph{Hamilton operator} $\mathcal{H}$. They are a solution of the \emph{Schr\"odinger equation}, that describes the energy and the time evolution of the particles. For example, the time independent Schr\"odinger equation is given by
+\begin{equation}
+\mathcal{H}\psi\kl{\vec{r}} = E \psi\kl{\vec{r}}.
+\end{equation}
+where E is the energy of a state and the Hamiltonian represents the kinetic and potential energy of the particle in this particular state:
+\begin{equation}
+\mathcal{H} = - \frac{\hbar^2}{2m} \nabla^2  +V\kl{\vec{r}}.
+\end{equation}
+From the Hamiltonian (in the $\frac{\hbar}{m}$ factor) one can see that quantum mechanical effects disappear for \emph{large} masses. Already for the mass of ions quantum mechanical effects can be neglected and they can be approximatively treated with classical physics.
+
+The ground state is defined as the state with the lowest energy eigenvalue. Here we will only be concearned about ground states and equilibrium states. For a composed object, the wave function depends on all the composing particles:
+
+\begin{equation}
+\rho\kl{\vec{r_1},\vec{r_2},...,\vec{r_N},t} = \abs{\psi\kl{\vec{r_1},\vec{r_2},...,\vec{r_N},t}}^2 = \psi^*\kl{\vec{r_1},\vec{r_2},...,\vec{r_N},t}\psi\kl{\vec{r_1},\vec{r_2},...,\vec{r_N},t}
+\end{equation}
+
+\noindent
+with $\rho$ again being the probability of finding the particles at a certain point in time, normalized over all coordinates and time. 
+
+If the wave function is symmetric under exchange of two particles (+), we call the object a \emph{Boson}, if the function is antisymmetric (-), a \emph{Fermion}:
+
+
+\begin{equation}
+ \psi\kl{\vec{r_1},...,\vec{r_i},...,\vec{r_j},...,\vec{r_N},t} = \pm \psi\kl{\vec{r_1},...,\vec{r_j},...,\vec{r_i},...,\vec{r_N},t}.
+\end{equation}
+
+Already from this one can see that fermions behave very differently from classical particles: exchanging composing particles leads to a wave function with opposite sign! One of the consequences of this asymmetry is that identical fermions (e.g. two electrons) will never occupy the exact same state at the same coordinates in space and time (\emph{Pauli exclusion principle}).
+
+If the particles composing the objects are not interacting or are only loosely correlated, one can approximate the wave function using the \emph{Slater determinant} and the wave functions of the free particles:
+
+\begin{equation}
+\psi\kl{\vec{r_1},...,\vec{r_N}}
+=
+\frac{1}{N!}
+\abs{
+\begin{pmatrix}
+ \psi_1\kl{\vec{r_1}} & \cdots & \psi_N\kl{\vec{r_N}}\\
+ \vdots				  & \ddots & \vdots	\\
+ \psi_1\kl{\vec{r_1}} & \cdots & \psi_N\kl{\vec{r_N}}\\
+\end{pmatrix}
+}
+\label{eq:slater}
+\end{equation}
+
+
+Eventual corrections for the correlation between the components of the object can be added to the equations. The calculation of \eqref{eq:slater} is computationally very expensive and time consuming.
+
+
+
+
+
+
+
+
+
+\section{Approximations in Quantum Mechanics}
+
+
+\subsection{Implementation Of Wave Functions}
+
+An interesting approach to simulate quantum systems is the the direct implementation of wave functions. This is a conditional method, since often the system is so complex that it is very difficult to simulate the entire set of degrees of freedom. Complex molecules are already very difficult to fully simulate with this method. The most used and simplest approach is to expand the wave function in an orthonormal basis system and cut the expansion at some point. Plane waves are often used for this:
+
+
+
+\begin{equation}
+\psi_j = \sum_k c_{jk} \xi_k
+\end{equation}
+with $\xi_k = \exp\kl{ikx}$. Typically one looks at how many plane waves are needed until the energy converges (a typical number would be around some thousands plave waves). Another option is to take localized waves instead of plane waves. Paul Pulay did this in 1969 using Gaussian orbitals:
+
+\begin{equation}
+\xi_l\kl{r} = c_l r^l \exp\kl{-\alpha r^2}
+\end{equation}
+
+Due to the cut-off of the basis of the  wave function, one gets the so called \emph{Pulay forces} which are a numerical artefact that has to be corrected. Its effect can reach the order of magnitude of the real physical forces and is therefore not neglegible.
+
+
+
+
+
+
+
+
+\subsection{Born-Oppenheimer Approximation}
+
+A more common approach for atoms and molecules is given by the \emph{Born-Oppenheimer} approximation: the core of the atoms and the electrons can be decoupled, since the masses are very different ($\propto$1000 times). Because of the $\frac{\hbar}{m}$ factor, the atomic core can be first treated classically with MD and after having solved their motion the electrons can be treated quantum mechanically.
+
+The limitation  of this approach is that the electrons can change their energy state (e.g., in atomic transitions), and the condition for the Born Oppenheimer approximation is thus that the motion of the ions is discretized in time steps small enough such that these transitions are resolved.
+
+\subsubsection*{Density function theorem}
+If the ground state is not degenerated, the approximation that physical quantities only depend on the probability density and not on the wave function can be made. It is thus enough to consider the square of the wave function to calculate the quantities and the wave function itself is not needed.
+
+
+\subsection{Kohn-Sham Approximation}
+If one develops further the idea that particles can be treated separately, non interacting single particles moving in a potential can be considered, e.g. when treating electrons. After the density function theorem, our quantities only depend on the density distribution. After having solved the motion or the quantities of interest following the mentioned approximation, correlation effects can be corrected with further terms. 
+
+Taking the orthonormality condition of the basis wave functions into account 
+
+\begin{equation}
+\int{  \psi_i^*\kl{\vec{r}} \psi_j\kl{\vec{r}}  \text{d}r } = \delta_{ij}, 
+\end{equation}
+
+
+\noindent
+one can formulate the problem separating the potential in which the electrons move from their kinetic and interaction part:
+
+
+\begin{equation}
+E_{KS} = 
+\underbrace{- \sum_i {  f_i \int{\psi_i^*\kl{\vec{r}} \frac{\hbar^2}{2m_i}\nabla^2\, \psi_i\kl{\vec{r}} \text{d}\vec{r}  }    } }_{\text{kinetic energy}}  + \underbrace{ V_{\text{eff.}} }_{\text{pot. energy}}.
+\end{equation}
+
+
+\noindent
+With the occupation number $f_i$ and the effective potential
+
+
+\begin{equation}
+V_{\text{eff}}\kl{\rho} =
+\underbrace{\int{\rho\kl{\vec{r}} V_{\text{ext.}}\kl{\vec{r}}  \text{d}\vec{r} }}_{\text{ions term}} +
+\underbrace{\frac{1}{2} \int\int \frac{ \rho\kl{\vec{r}} \rho\kl{\vec{r}\,'} }{\abs{\vec{r}-\vec{r}\,'}} }_{\text{Coulomb term}}
+\text{d}\vec{r}\text{d}\vec{r}\,' +
+\underbrace{E_{\text{exc.}} + E_{\text{corr.}}}_{\text{correction terms}}
+\end{equation}
+
+
+\noindent
+given by the external core field, the Coulomb term of the electronic interaction and the correction terms for quantum mechanical effects of the electrons (change of state, correlation, fermion statistics, etc.). Note how everything only depends on the probability density
+
+\begin{equation}
+\rho\kl{\vec{r}} = 
+\sum_i {  f_i \int{  \psi_i^*\kl{\vec{r}} \psi_i\kl{\vec{r}}  \text{d}r }  }.
+\end{equation}
+
+
+
+Due to the effect that everything has been boiled down to single particles functions in an external potential, this particle functions are not physical quantities  anymore, but terms in a decomposition. The sum of the energies of the single particles is therefore not equal the total energy of the system!
+
+The exchange energy is still to be calculated. Using the Slater determinants one can calculate the free electron gas analutically. In the \emph{Local Density Approximation} (LDA) the correction terms in the Kohn-Sham approximation are given by a free electron gas with the same density\footnote{This result, like all the other concepts treated in this chapter, is derived in quantum mechanics lectures and every introductory literature on quantum mechanics.}:
+
+\begin{equation}
+E_x^{\text{LDA}} = 
+-\frac{3}{4} \kl{\frac{3}{\pi}}^{\frac{1}{3}} \int {\rho\kl{\vec{r}}^{\frac{4}{3}} \text{d}\vec{r}  }
+\end{equation}
+
+\noindent
+This represents the energy cost of having some electrons in a certain coordinate. This is only an approximation and has also to be corrected further.
+
+Since single body wave functions are used, the neglected correlation effects between them also have to be corrected. This happens in $E_c$. Again, using LDA, one can assume that
+
+\begin{equation}
+E_c^{\text{LDA}} = 
+ \int {\epsilon_c \kl{\rho\kl{\vec{r}}} \text{d}\vec{r}  }
+\end{equation}
+Where $\epsilon_c$ is a term for which no analytic expression is known.
+
+
+LDA is usually applied to calculations in band structures and solid state physics, where the approximation of a free electron gas is accurate. In quantum chemistry, where the chemical bonds are more sensitive to the density, this is not enough. To do a better approximation one also has to take  the gradient of the probability density into account. LDA is thus improved by adding a dependence on the gradient of $\rho$. This is called the \emph{General Gradient Approximation} (GGA).  There is a good physical reason for this correction: quantum mechanical effects are very strong when there is a change in the slope of the wave function and in particular when two identical fermions come closer. Due to the Pauli exclusion principle, non classical effects are stronger if the particles are close. The correction term is thus given by:
+\begin{equation}
+E_x^{\text{GGA}} = 
+ \int {\epsilon_x \kl{   \rho\kl{\vec{r}}, \abs{\nabla  \rho\kl{\vec{r}} }   } \text{d}\vec{r}  }
+\end{equation}
+Where $\epsilon_x$ is a term for which no analytic expression is known. There are several attempts to give a functional form for the GGA, e.g. the one proposed by Frank Herman in 1969:
+
+\begin{equation}
+E_x^{\text{GGA}} =  E_x^{\text{LDA}} -
+ \beta \int { \frac{\kl{\nabla \rho}^2}{\rho^{\frac{4}{3}}}  \text{d}\vec{r}  }
+\end{equation}
+with $\beta$ being a numerical constant or the more used one, by a professor in Halifax (Canada), Axel Becke \citep{becke}:
+ 
+\begin{equation}
+E_x^{\text{Becke}} =  E_x^{\text{LDA}} -
+ \beta \int {\rho^{\frac{4}{3}} \frac{x^2}{1+6\beta x \text{sinh}^{-1}\kl{x}}  \text{d}\vec{r}  }
+\end{equation}
+with $x\equiv \frac{\abs{\nabla\rho}}{\rho^{\frac{4}{3}}}$ and $\beta = 0.0042$. The fact that his paper with this correction is the most cited paper in physical science (to date) gives an idea of the importance of this subject. This is not an analytically derived formula, it is obtained purely empirically. It fails on certain regimes (e.g. it doens't fully recover the Van der Waals forces correctly). This has been corrected further, e.g. by Grimme \citep{grimme}.
+
+
+
+
+\subsection{Hellmann-Feynman Theorem}
+
+
+Once the electrons are solved, one can iterate and solve the motion of the ions in the ion-electron potential. Supposing we have the Hamiltonian of the system, then the forces acting on the ions are given by the expectation value of the derivative of the Hamiltonian with respect to the spatial coordinates (\emph{Hellmann-Feynman Theorem}). This theorem, which will not be proven here, can be written as \footnote{Here we use the \emph{Bra-Ket} notation: $\avkl{\psi\abs{A}\psi} \equiv \int{\psi^* A \, \psi}$. For further information consult literature on quantum mechanics.}
+\begin{equation}
+m_{\alpha} \dder{\vec{R}_{\alpha}}{t} =
+- \avkl{\psi\abs{\pder{\mathcal{H}}{\vec{R}_{\alpha}}}\psi}.
+\label{eq:hell-fey}
+\end{equation}
+
+What we have constructed here is an iterative method for solving the motion of molecules or similar objects by separating the wave functions. Summarizing, the receipe is the following:
+\begin{itemize}
+\item Solve the electronic motion in the effective potential of the ions by separating the wave functions.
+\item Solve the motion of the ions using classical MD simulations together with the forces given by the Hellmann-Feynman theorem \eqref{eq:hell-fey}.
+\item Iterate
+\end{itemize}
+
+This seems a reasonable method, but the problem is that the first step can be very difficult. Molecules or composed particles can assume very complex form and the degrees of freedom for the electronic cloud are usually tens or hundreds, making the computation very cumbersome. For this, the contribution of Car and Parrinello has been very important (see next section).
+
+
+
+
+\section{Car-Parrinello Method}
+
+
+Car and Parrinello managed to cast the eigenvalue problem into a molecular dynamics problem for the electrons \citep{carpar1}. They constructed a Hamiltonian for the entire system:
+
+\begin{equation}
+\mathcal{H}_{CP} \kl{R^n, \dot{R}^n, \mkl{\psi}, \mkl{\dot{\psi}} } 
+=
+\sum_l{   \underbrace{ \frac{1}{2}\frac{P_l^2}{M_l}}_{\text{kin. en. ions}}   }
++ \,
+\sum_l{  \underbrace{  \frac{\mu}{2}\avkl{\dot{\psi}|\dot{\psi}} }_{e^-\text{ kin. en.}}   }
++\,
+\underbrace{E^{\text{KS}}\kl{R^n,\mkl{\psi}}}_{\text{Kohn-Sham energy}}
+\,+
+\underbrace{E^{\text{Ion}}\kl{R^n}}_{\text{ion-ion inter. en.}}
+\end{equation}
+
+
+Similar to the Nos\'e-Hoover approach, we regard the ions and the electrons as two different system coupled with a Hamiltonian, that consists of the kinetic and potential parts of both ions and electrons. The coupling however, is done with an artificial mass, $\mu$ which is not the real mass of the electrons. The kinetic energy of the electronic part is in reality not equal the kinetic energy of the physical electrons\footnote{Mind that even the electrons wave functions $\psi$ are not the functions of the real electrons!}. This artificial electronic kinetic energy, given by $\mu$, is a numerical parameter which represents the coupling of the two systems\footnote{The analogy with the Nos\'e-Hoover thermostat might now be clearer: recall the coupling variable $Q$ that described how strong the heath bath and the particles were coupled.}. The higher $\mu$ is, the more the ions and the electrons are coupled and the faster is the electronic response to the ionic movement. The motion of the electrons can now be found using the hamiltonian and integrating numerically. Mind that the integration time step has to be small enough to resolve the electronic motion. 
+
+
+The main advantages of the Car-Parrinello method are that the computation is much faster and the energy fluctuations are smaller compared to the classical Born-Oppenheimer approximation. However, for small atoms and molecules (e.g. the hydrogen atom), the light ions and the relatively high $\mu$ lead to numerical problems and deviations from the real physical quantities.
+
+\vspace{0.7cm}
+
+
+All these methods described here rely on approximations and cannot be seen as a realistic description of the physical processes happening on quantum mechanical scales. As the exotic methods described in fluid dynamics, they have to be taken as numerical methods that give accurate results. Even if they are inspired by reality, they do not necessarily reflect it. The fact that one can implement wave functions using plave waves basis function, as well as gaussian basis function both with a cut-off is emblematic. Depending on the situation one might use one or the other. For small and isolated molecules (i.e., spatially localized) one needs many basis functions and has to pay careful attention to the cut-off due to energy-related problems (e.g., the Pulay forces for the Gaussian basis wave functions). On the other way, plane waves are analytically easier and simpler to implement with existing scientific libraries. The decision of which method has to be used does not always imply that one is more realistic than the other, only that it gives better and/or faster results.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

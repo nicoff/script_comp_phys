@@ -1,0 +1,44 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {3.7}Long Range Potentials}{62}{section.3.7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.1}Ewald Summation}{62}{subsection.3.7.1}}
+\newlabel{fig:ewald}{{3.7.1}{62}{Ewald Summation\relax }{subsection.3.7.1}{}}
+\citation{dixon}
+\citation{hockney}
+\citation{hockney_book}
+\newlabel{eq:ewald}{{3.31}{63}{Ewald Summation\relax }{equation.3.7.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces BLABLA.}}{63}{figure.3.5}}
+\newlabel{fig:ewald_screening}{{3.5}{63}{BLABLA}{figure.3.5}{}}
+\citation{comp_phys}
+\citation{pfalzner}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.2}Particle Mesh Method}{64}{subsection.3.7.2}}
+\@setckpt{chapters/molecular_dynamics/long_range_potentials}{
+\setcounter{page}{66}
+\setcounter{equation}{31}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{7}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{5}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{2}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{7}
+\setcounter{bookmark@seq@number}{41}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

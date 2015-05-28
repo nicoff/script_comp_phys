@@ -1,0 +1,48 @@
+\relax 
+\citation{lagrange}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Dynamics of Composed Particles}{55}{section.3.6}}
+\newlabel{fig:water}{{3.6}{55}{Dynamics of Composed Particles\relax }{section.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Lagrange multipliers}{55}{subsection.3.6.1}}
+\newlabel{eq:lagrange_forces}{{3.7}{56}{Lagrange multipliers\relax }{equation.3.6.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Rigid Bodies}{57}{subsection.3.6.2}}
+\newlabel{eq:center_of_mass}{{3.11}{57}{Rigid Bodies\relax }{equation.3.6.11}{}}
+\newlabel{eq:cof_eom}{{3.12}{57}{Rigid Bodies\relax }{equation.3.6.12}{}}
+\newlabel{eq:cof_eom}{{3.6.2}{57}{Two dimensions:\relax }{section*.32}{}}
+\newlabel{eq:eom_rot}{{3.13}{57}{Two dimensions:\relax }{equation.3.6.13}{}}
+\newlabel{eq:transf_mat}{{3.14}{58}{Three dimensions:\relax }{equation.3.6.14}{}}
+\newlabel{eq:horr_mat}{{3.6.2}{59}{Euler angles:\relax }{section*.34}{}}
+\newlabel{eq:ang_veloc}{{3.23}{59}{Euler angles:\relax }{equation.3.6.23}{}}
+\citation{evans1,evans2}
+\newlabel{eq:quaternions}{{3.27}{60}{Quaternions:\relax }{equation.3.6.27}{}}
+\newlabel{eq:quaternions_back}{{3.30}{61}{Quaternions:\relax }{equation.3.6.30}{}}
+\@setckpt{chapters/molecular_dynamics/composed_particles}{
+\setcounter{page}{62}
+\setcounter{equation}{30}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{6}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{4}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{2}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{7}
+\setcounter{bookmark@seq@number}{38}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

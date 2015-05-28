@@ -1,0 +1,50 @@
+
+\chapter{Codes}
+
+In this Section, the codes have been taken by various open sources online. The routines have been heavily shortened and altered for the sake of the explanations, mainly in Chapter \ref{chap:parallelization}. It is obvious that the codes have not been tested and that we do not guarantee for the compatibility of what are meant to be simple examples for this scriptum.
+
+
+
+\section{Multi Spin Coding}
+\label{code:multi_spin}
+\small
+\lstinputlisting{chapters/codes/multi_spin.cpp}
+\normalsize
+
+
+
+\newpage
+\section{Parallelization}
+\label{code:parallel_pi}
+\small
+\lstinputlisting{chapters/codes/parallel_pi.f}
+\normalsize
+
+
+
+\newpage
+\section{MPI}
+\label{code:mpi}
+\small
+\lstinputlisting{chapters/codes/mpi.cpp}
+\lstinputlisting{chapters/codes/mpi.f}
+\normalsize
+
+
+
+\newpage
+\section{Linked Cells Method}
+\label{code:linked_cells}
+\small
+\lstinputlisting{chapters/codes/linked_cells.cpp}
+\normalsize
+
+
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../dipse"
+%%% End: 

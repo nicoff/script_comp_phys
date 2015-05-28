@@ -1,0 +1,49 @@
+\relax 
+\citation{comp_phys}
+\@writefile{toc}{\contentsline {section}{\numberline {1.6}Renormalization Group}{32}{section.1.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.1}Real Space Renormalization}{32}{subsection.1.6.1}}
+\newlabel{fig:decimation}{{1.6.1}{32}{Real Space Renormalization\relax }{subsection.1.6.1}{}}
+\newlabel{fig:1d_decimation}{{1.6.1}{33}{Decimation of 1D Ising Model\relax }{section*.21}{}}
+\newlabel{eq:condition_renorm}{{1.44}{34}{Decimation of 1D Ising Model\relax }{equation.1.6.44}{}}
+\citation{ma_renorm}
+\citation{swendsen_renorm}
+\newlabel{eq:lin_trafo}{{1.46}{35}{Generalization\relax }{equation.1.6.46}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.19}{\ignorespaces Flow diagram of a renormalization transformation.}}{35}{figure.1.19}}
+\newlabel{fig:renorm_flow}{{1.19}{35}{Flow diagram of a renormalization transformation}{figure.1.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.2}Monte Carlo Renormalization Group}{35}{subsection.1.6.2}}
+\newlabel{eq:op_av}{{1.47}{36}{Monte Carlo Renormalization Group\relax }{equation.1.6.47}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.20}{\ignorespaces Scheme of the MCRG strategy.}}{36}{figure.1.20}}
+\newlabel{fig:mc_renorm}{{1.20}{36}{Scheme of the MCRG strategy}{figure.1.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces $\nu $ for a 4-state Potts model in 2D. Note the convergence.}}{37}{figure.1.21}}
+\newlabel{fig:nu4_potts}{{1.21}{37}{$\nu $ for a 4-state Potts model in 2D. Note the convergence}{figure.1.21}{}}
+\@setckpt{chapters/statistical_mechanics/renormalization}{
+\setcounter{page}{38}
+\setcounter{equation}{47}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{5}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{1}
+\setcounter{section}{6}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{21}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{1}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{6}
+\setcounter{bookmark@seq@number}{24}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

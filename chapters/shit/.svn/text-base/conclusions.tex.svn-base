@@ -1,0 +1,31 @@
+
+
+\chapter{Conclusions and Outlook}
+\label{chap:outloook}
+
+
+
+After an introduction on stellar oscillations and on the data provided by the NASA satellite \emph{Kepler}, the work of \citet{siegel1} has been briefly presented. Assuming the hypothesis of excitation of g modes due to the incidence of gravitational waves holds, some possibilities for experimental implementations for the detection of SBGW have been discussed. Red giants in clusters have been identified as possible candidates for time correlations. The goal is detecting a correlation of the light curves of two or more stars, showing a delayed peak corresponding to the time needed by a gravitational wave to cover the distance between the two stars.
+
+\noindent
+A set of routines (\emph{eva2}, \emph{sunday}), to facilitate and automate the evaluation process of \emph{Kepler} data has been developed and presented in Ch. \ref{sec:grundlagen-methoden}. In Ch. \ref{chap:simulation}, routines for the simulations of stellar oscillation (\emph{renac}, \emph{gwaved}) have been created. This allowed a first rudimentary estimation of the upper bounds for the detection of the above mentioned phenomenon. It emerged that LC data are unlikely to offer the required precision for these kind of measurements (Sec. \ref{sec:firstcorr}).
+
+\noindent
+The correlation of simulated time series in SC shows more accurate results: For longer observation times (over 5 years), a peak is clearly distinguishable at amplitudes below $10\,\%$ of typical stellar oscillations, depending on how often the two stars are excited to oscillations and how many frequencies are involved (see Sec. \ref{sec:simrenac}). 
+
+\vspace{0.3cm}
+
+\noindent
+Still, these simulations do not constitute a satisfactory estimator of the detection limits for the surface speed of SBGW. They are rather a first comparison between the quality of LC and SC data for the correlation. Future work will include more sophisticated simulations of stellar oscillations and of the detection limits for the amplitudes (see Sec.~\ref{sec:simrenac}). Moreover, these estimated amplitudes have to be then related to surface velocities and compared to the simulations of the effects of gravitational waves on red giants.
+
+
+\noindent
+Finally, the computation of long time series can be substantially time-consuming. Since \kep is likely to be gathering data for a long time before being shut down, an evaluation of the light curves collected over many years will require more advanced programs. Future work will therefore also address the translation of the programs presented in this thesis to a more effective programing language like C, in order to implement parallel programming models for faster calculations.
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../dipse"
+%%% End: 

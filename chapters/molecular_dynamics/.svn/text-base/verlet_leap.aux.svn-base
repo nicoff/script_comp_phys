@@ -1,0 +1,52 @@
+\relax 
+\citation{verlet}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Verlet Method}{49}{section.3.3}}
+\newlabel{eq:verlet}{{3.3}{49}{Verlet Method\relax }{equation.3.3.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Leap-frog Method}{49}{section.3.4}}
+\newlabel{eq:leap}{{3.4}{49}{Leap-frog Method\relax }{equation.3.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparison of Verlet (upper row) and Leap-frog (lower row) method.}}{50}{figure.3.1}}
+\newlabel{fig:leap_verlet}{{3.1}{50}{Comparison of Verlet (upper row) and Leap-frog (lower row) method}{figure.3.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Energy distribution in the Leap-frog method}}{51}{figure.3.2}}
+\newlabel{fig:energy_leap}{{3.2}{51}{Energy distribution in the Leap-frog method\relax }{figure.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Comparison of the time development of two similar initial configurations.}}{52}{figure.3.3}}
+\newlabel{fig:divergence_leap}{{3.3}{52}{Comparison of the time development of two similar initial configurations}{figure.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparison of the precision in the Verlet method and the predictor-corrector of various order.}}{52}{figure.3.4}}
+\newlabel{fig:comp_verlet}{{3.4}{52}{Comparison of the precision in the Verlet method and the predictor-corrector of various order}{figure.3.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Optimization of the algorithms}{52}{section.3.5}}
+\citation{art}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Verlet Tables}{53}{subsection.3.5.1}}
+\newlabel{fig:verlet_table}{{3.5.1}{53}{Verlet Tables\relax }{subsection.3.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Linked Cells Method}{53}{subsection.3.5.2}}
+\newlabel{fig:linked_cells}{{3.5.2}{53}{Linked Cells Method\relax }{subsection.3.5.2}{}}
+\newlabel{fig:linked_parallelization}{{3.5.2}{54}{Linked Cells Method\relax }{subsection.3.5.2}{}}
+\@setckpt{chapters/molecular_dynamics/verlet_leap}{
+\setcounter{page}{55}
+\setcounter{equation}{4}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{5}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{4}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{2}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{7}
+\setcounter{bookmark@seq@number}{35}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

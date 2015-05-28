@@ -1,0 +1,48 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Cluster algorithms}{22}{section.1.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Potts Model}{22}{subsection.1.4.1}}
+\newlabel{eq:potts_model}{{1.32}{22}{Potts Model\relax }{equation.1.4.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.17}{\ignorespaces Specific heat for two dimensional Potts model with q=10. On the right the scaling for different sizes.}}{22}{figure.1.17}}
+\newlabel{fig:potts10}{{1.17}{22}{Specific heat for two dimensional Potts model with q=10. On the right the scaling for different sizes}{figure.1.17}{}}
+\newlabel{eq:energy_potts}{{1.33}{23}{Kasteleyn and Fortuin:\relax }{equation.1.4.33}{}}
+\newlabel{fig:contr_del}{{1.4.1}{23}{Kasteleyn and Fortuin:\relax }{equation.1.4.33}{}}
+\newlabel{eq:part_func_coniglio}{{1.35}{24}{Kasteleyn and Fortuin:\relax }{equation.1.4.35}{}}
+\citation{mermin}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}O(n) Model}{25}{subsection.1.4.2}}
+\newlabel{eq:antiferromagnetic}{{1.36}{25}{O(n) Model\relax }{equation.1.4.36}{}}
+\newlabel{fig:en_bond}{{1.4.2}{26}{O(n) Model\relax }{equation.1.4.36}{}}
+\newlabel{fig:e_xy}{{1.4.2}{26}{O(n) Model\relax }{equation.1.4.36}{}}
+\newlabel{fig:cv_xy}{{1.4.2}{26}{O(n) Model\relax }{equation.1.4.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Implementation of Cluster Algorithms}{26}{subsection.1.4.3}}
+\newlabel{fig:critical_slowing_down_swendsen}{{1.4.3}{27}{Swendsen-Wang algorithm:\relax }{section*.19}{}}
+\@setckpt{chapters/statistical_mechanics/cluster_algorithms}{
+\setcounter{page}{28}
+\setcounter{equation}{36}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{5}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{1}
+\setcounter{section}{4}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{17}
+\setcounter{table}{0}
+\setcounter{parentequation}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{lstnumber}{1}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{6}
+\setcounter{Hfootnote}{6}
+\setcounter{bookmark@seq@number}{17}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{2}
+}

@@ -1,0 +1,241 @@
+% Proof of nose hoover thermostat (slide 140 CP II, audio 9b)
+
+
+
+
+
+\documentclass[%
+paper=a4,
+english,
+fontsize=11.9pt,
+twoside=true,
+pointlessnumbers,
+BCOR5mm,
+titlepage=true,
+% smallheadings,
+headinclude,
+cleardoublepage=empty,
+openright,
+appendixprefix,
+chapterprefix=false,
+DIV12
+]{scrbook}
+
+\usepackage{wrapfig}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[german]{babel}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{textcomp}
+\usepackage[centertags]{amsmath}
+\usepackage{graphicx}\graphicspath{{figures/}{logos/}}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{textcomp}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[font=small,labelfont=bf]{subcaption}
+\usepackage{lmodern}
+\usepackage[squaren]{SIunits}
+\usepackage{placeins}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{floatpag}
+\usepackage{needspace}
+%\usepackage{float}
+\usepackage[round]{natbib}
+\usepackage{scrpage2}
+\floatpagestyle{empty} 
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{hyperref}
+
+% ======================= Layout Anpassungen =======================
+
+% inhaltsverzeichnis bis 2. ebene
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{3}
+
+% einfaceh kopfzeile mit kapitel/section mitte; seitenzahl außen
+\pagestyle{scrheadings}
+\automark[section]{chapter}
+\renewcommand*{\chaptermarkformat}{Chapter \thechapter: \autodot\enskip}
+\renewcommand*{\sectionmarkformat}{\autodot\enskip}
+\ohead{\pagemark}
+\chead{\headmark}
+\cfoot{}
+\ofoot{\pagemark}
+\ifoot{}
+\setheadsepline{0.4pt}
+
+%\renewcommand{\topfraction}{.85}
+%\renewcommand{\bottomfraction}{.7}
+%\renewcommand{\textfraction}{.10}
+%\renewcommand{\floatpagefraction}{.8}
+
+\renewcommand{\topfraction}{.30}
+\renewcommand{\bottomfraction}{.22}
+\renewcommand{\textfraction}{.12}
+\renewcommand{\floatpagefraction}{.12}
+
+
+
+
+
+% figure nummeririerung: kapitel.figure
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+% bildunterschriften etwas kleiner, keine einrückung
+\setkomafont{captionlabel}{\normalfont\small}
+\setkomafont{caption}{\normalfont\small}
+\setcapindent{0pt}
+
+% kein ausgleich des unteren randes bei twoside
+\raggedbottom
+
+% schusterjungen und hurenkinder verhndern
+\clubpenalty = 10000
+\widowpenalty = 100000
+\displaywidowpenalty = 10000
+
+% listings setup fuer C/C++ IDL
+
+
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{red},       % keyword style
+  language=C,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+
+
+%\lstset{frameround=tttt}
+%\lstset{frameround=trbl}
+
+%%% ==============================================================
+
+
+% eigene makrodefinitionen
+\input{makros}
+
+%\newcommand{\fixme}[1]{\textcolor{red}{(#1)}%
+%  \marginpar{\textcolor{red}{Fix Me!}}%
+%}
+%\newcommand{\todo}[1]{\textcolor{blue}{(#1)}%
+%  \marginpar{\textcolor{blue}{Todo}}%
+%}
+
+        
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+\title{Computational Statistical Physics}
+\subtitle{\emph{Lecture Notes}}
+\author{Nicola Offeddu \\Marcel Thielmann \\Madis Ollikainen}
+\date{Summer Semester 2014}
+
+\frontmatter
+\begin{titlepage}
+  \include{chapters/shit/titelseite}
+\end{titlepage}
+
+\cleardoublepage
+\include{chapters/shit/preface}
+\cleardoublepage
+
+\renewcommand{\contentsname}{Table of contents}
+\tableofcontents
+\cleardoublepage
+
+\mainmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{chapters/monte_carlo/classical_stat_mech}
+\include{chapters/monte_carlo/monte_carlo_algorithm}
+\include{chapters/monte_carlo/finite_size_methods}
+\include{chapters/monte_carlo/cluster_algorithms}
+\include{chapters/monte_carlo/histo_methods}
+\include{chapters/monte_carlo/renormalization}
+%------------------------------------------------------------------------------------------------------------------------------------------
+\include{chapters/parallelization/multi_spin}
+\include{chapters/parallelization/vectorization}
+%------------------------------------------------------------------------------------------------------------------------------------------
+\include{chapters/molecular_dynamics/introduction}
+\include{chapters/molecular_dynamics/verlet_leap}
+\include{chapters/molecular_dynamics/composed_particles}
+\include{chapters/molecular_dynamics/simulating_shapes}
+\include{chapters/molecular_dynamics/long_range_potentials}
+\include{chapters/molecular_dynamics/event_driven_programming}
+%------------------------------------------------------------------------------------------------------------------------------------------
+%\begin{comment}
+\include{chapters/inelastic_collision/inelastic_collision}
+\include{chapters/inelastic_collision/contact_dynamics}
+\include{chapters/inelastic_collision/particle_in_fluids}
+%------------------------------------------------------------------------------------------------------------------------------------------
+\include{chapters/canonical_ensemble/canonical_ensemble}
+%------------------------------------------------------------------------------------------------------------------------------------------
+\include{chapters/quantum_mech/quantum_mech}
+%\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%% literaturverzeichnis
+\bibliographystyle{plainnat}
+\bibliography{chapters/shit/literatur}
+
+\appendix
+
+
+\include{chapters/shit/appendix}
+\include{chapters/shit/danksagung}
+
+
+
+\end{document}
+
+
+
+
+
