@@ -127,30 +127,40 @@ If the potential is not a simple function and its calculation would imply a lot 
 
 In the case of short range potentials one could think of introducing a cut-off at a distance where the potential is negligible. Mind that this is a problem for $r^{-1}$ potentials since their contribution at very large distances is still not negligible. One can consider the idea of defining a new potential, shifted by a constant, such that it reaches exactly zero at the cut off. This won't affect the forces since any constant disappears when taking the gradient of the potential. Another idea is to interpolate the cut off with a linear (or quadratic) function that reaches zero in a finite distance. Mind that the function is continuous but not smooth at the connection. A careful programmer should be aware of this and address related troublesome situations with caution. Already the first derivative of the potential (i.e. the force) will present a discontinuity, and the second derivative even a divergence where the potential has been interpolated.
  
-BLABLA for MADIS, read till here!!
+%BLABLA for MADIS, read till here!!
 
 \subsection{Verlet Tables}
 
 \vspace{0.1cm}
 \noindent
-\begin{minipage}{\textwidth}
-\begin{minipage}{.55\textwidth}
+%\begin{minipage}{\textwidth}
+%\begin{minipage}{.55\textwidth}
 
 
 
-In order to reduce the amount of computations one can omit the computation of particle-particle interactions when they are negligible, therefore only particles that are in a certain range have to be considered. One approach to implement such a neighbourhood search is a \emph{Verlet table}, where only the particles in a certain range are stored. As the particles move with time, the table has to be updated regularly, with the updating time being dependent on the implementation of the Verlet table.
+%In order to reduce the amount of computations one can omit the computation of particle-particle interactions when they are negligible, therefore only particles that are in a certain range have to be considered. One approach to implement such a neighbourhood search is a \emph{Verlet table}, where only the particles in a certain range are stored. As the particles move with time, the table has to be updated regularly, with the updating time being dependent on the implementation of the Verlet table.
+
+% By Madis
+Brute force calculation of the particle-particle interactions between all $N$ particles is very costly, with complexity $O(N^2)$. For potentials decaying faster than $r^{-1}$ in distance it is reasonable to assume a cut-off range $r_C$ beyond which interactions are negligible. Thus only interactions with particles in a certain neighbourhood have to be considered. The trick here is to find a efficient way of keeping track of which atoms are which neighbourhood.
+
+One approach is via using the so-called Verlet tables. For each particle we keep track of nearby particles inside a neighbourhood larger than the cut-off $r_l > r_c$. In order to make sure that all particles inside the cut-off region are accounted for, the neighbours list has to be updated every $N_l$ time steps
+\[
+N_l= \frac{r_l - r_c }{\Delta t v_{max}},
+\]  
+where $V_{max}$ is the maximum velocity of a particle.
+
+The Verlet table can be implemented using two one dimensional vectors LIST and FIRST. In LIST sequentially stores all the neighbourhoods, and FIRST[i] gives the index to the first particle in the neighbourhood of particle $i$. Thus the neighbourhood of particle $i$ is LIST[FIRST[i]], ... , LIST[FIRST[i+1]-1].   
 
 
 
-
-\end{minipage}\hfill
-\begin{minipage}{.4\textwidth}
+%\end{minipage}\hfill
+%\begin{minipage}{.4\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/verlet_table}
-  \captionof{figure}{In the verlet tables the particles are stored according to their distance from another particle.}
+  \includegraphics[width=0.4\textwidth]{pics/verlet_table}
+  \captionof{figure}{Illustration of the Verlet table for the green particle. The particles inside the neighbourhood are coloured blue and those outside are coloured purple.}
   \label{fig:verlet_table}
-\end{minipage}
-\end{minipage}
+%\end{minipage}
+%\end{minipage}
 \vspace{0.1cm}
 
 
