@@ -140,48 +140,71 @@ In the case of short range potentials one could think of introducing a cut-off a
 
 %In order to reduce the amount of computations one can omit the computation of particle-particle interactions when they are negligible, therefore only particles that are in a certain range have to be considered. One approach to implement such a neighbourhood search is a \emph{Verlet table}, where only the particles in a certain range are stored. As the particles move with time, the table has to be updated regularly, with the updating time being dependent on the implementation of the Verlet table.
 
-% By Madis
-Brute force calculation of the particle-particle interactions between all $N$ particles is very costly, with complexity $O(N^2)$. For potentials decaying faster than $r^{-1}$ in distance it is reasonable to assume a cut-off range $r_C$ beyond which interactions are negligible. Thus only interactions with particles in a certain neighbourhood have to be considered. The trick here is to find a efficient way of keeping track of which atoms are which neighbourhood.
+%%% By Madis %%%
+% Verlet tables %
 
-One approach is via using the so-called Verlet tables. For each particle we keep track of nearby particles inside a neighbourhood larger than the cut-off $r_l > r_c$. In order to make sure that all particles inside the cut-off region are accounted for, the neighbours list has to be updated every $N_l$ time steps
+Brute force calculation of the particle-particle interactions between all $N$ particles is very costly, with complexity $O(N^2)$. For potentials decaying faster than $r^{-1}$ in distance it is reasonable to assume a cut-off range $r_C$ beyond which interactions are negligible.
+
+%\end{minipage}\hfill
+%\begin{minipage}{.4\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-25pt}
+  \centering
+  \includegraphics[width=0.4\textwidth]{pics/verlet_table}
+  \captionof{figure}{Illustration of the Verlet table for the green particle. Blue particles are in the Verlet table, purple are not. \citep{MIT_numerical_methods}}
+  \label{fig:verlet_table}
+\end{wrapfigure}
+%\end{minipage}
+%\end{minipage}
+%\vspace{-20pt}
+
+\noindent Thus only interactions with particles in a certain neighbourhood have to be considered. The trick here is to find a efficient way of keeping track of which particles are in the neighbourhood. 
+
+One approach is via using the so-called Verlet tables. For each particle we keep track of nearby particles inside a neighbourhood larger than the cut-off $r_l > r_c$ (see Fig \ref{fig:verlet_table}). Introducing such a buffer zone around the cut-off region allows us to update the neighbours list every $N_l$ time steps
 \[
 N_l= \frac{r_l - r_c }{\Delta t v_{max}},
 \]  
 where $V_{max}$ is the maximum velocity of a particle.
 
-The Verlet table can be implemented using two one dimensional vectors LIST and FIRST. In LIST sequentially stores all the neighbourhoods, and FIRST[i] gives the index to the first particle in the neighbourhood of particle $i$. Thus the neighbourhood of particle $i$ is LIST[FIRST[i]], ... , LIST[FIRST[i+1]-1].   
+\clearpage % For the wrapfigure not to go over the page 
+
+The Verlet table can be implemented using two one dimensional vectors LIST and POINT. In LIST sequentially stores all the neighbourhoods, and POINT[i] gives the index to the first particle in the neighbourhood of particle $i$. Thus the neighbourhood of particle $i$ is LIST[POINT[i]], ... , LIST[POINT[i+1]-1].   
 
 
-
-%\end{minipage}\hfill
-%\begin{minipage}{.4\textwidth}
-  \centering
-  \includegraphics[width=0.4\textwidth]{pics/verlet_table}
-  \captionof{figure}{Illustration of the Verlet table for the green particle. The particles inside the neighbourhood are coloured blue and those outside are coloured purple.}
-  \label{fig:verlet_table}
-%\end{minipage}
-%\end{minipage}
-\vspace{0.1cm}
-
+%%% By Madis %%%
+% Linked cell %
 
 \subsection{Linked Cell Method}
 
-Another method is the \emph{linked cell method} \citep{art}.
+%Another method is the \emph{linked cell method} \citep{art}.
+The renewal of Verlet tables is still a $O(N^2)$ task, thus the above methods on the whole is still $O(N^2)$. For a truly $O(N)$ algorithm one can implement the \emph{linked cell method} \citep{art}. The simulation domain is discretised using a regular grid spacing $M$, that is larger than the double of cut-off range $r_c$
 
-\vspace{0.1cm}
-\noindent
-\begin{minipage}{1.05\textwidth}
-\begin{minipage}{.6\textwidth}
-In this method, the domain is discretised using a regular grid with grid spacing of, e.g., $\frac{r_c}{2}<M<r_c$, where $r_c$ is the range of the potential (or the cut-off range). We can now identify the cell in which each particle is located. Due to our choice of $M$, only the interaction to particles in a finite number of cells has to be computed, as particles in further cells will not interact with the respective particle. In d dimensions  there are $3^d$ cells of interest (See Fig \ref{fig:linked_cells}). On average we will have to test $N3^d \frac{N}{M^d}$ particles, many of which will not interact with the particle due to their distance. The advantage is that the update of cell populations can be done very efficiently. 
-\end{minipage}\hfill
-\begin{minipage}{.38\textwidth}
+
+%\end{minipage}\hfill
+%\begin{minipage}{.38\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
+  \vspace{-30pt}
   \centering
-  \includegraphics[width=\textwidth]{pics/linked_cells}
-  \captionof{figure}{The cells that contribute to the interaction are shaded.}
+  \includegraphics[width=0.4\textwidth]{pics/linked_cells_block}
+  \captionof{figure}{The cells that contribute to the interaction are shaded. \citep{MIT_numerical_methods}}
   \label{fig:linked_cells}
-\end{minipage}
-\end{minipage}
-\vspace{0.1cm}
+  \vspace{-30pt}
+\end{wrapfigure}
+%\end{minipage}
+%\end{minipage}
+%\vspace{0.1cm}
+
+
+\[
+M > 2r_c.
+\] 
+
+%\vspace{0.1cm}
+%
+%\begin{minipage}{1.05\textwidth}
+%\begin{minipage}{.6\textwidth}
+\noindent We can now identify the cell in which each particle is located. Due to our choice of $M$, only the interaction to particles in a finite number of cells has to be computed, as particles in further cells will not interact with the respective particle. In d dimensions  there are $3^d$ cells of interest (See Fig \ref{fig:linked_cells}). On average we will have to test $N3^d \frac{N}{M^d}$ particles, many of which will not interact with the particle due to their distance. The advantage is that the update of cell populations can be done very efficiently. 
+
 
 To look up which particle is in which cell during the computation, one stores in a vector \emph{FIRST} of length $\kl{\frac{L}{M}}^d$ ($L$ is the system size) for each cell $j$ the index of the (arbitrary) first particle in the cell. If the cell is empty, then \emph{FIRST}$\ekl{j}=0$. In a second vector \emph{LIST} of length $N$, the indices of the next particle in the same cell can be stored. If the particle $i$ is the last one in a cell, then \emph{LIST}$\ekl{i}=0$. See \ref{code:linked_cells} for an example on how to program a loop in C to go through all particles in a cell. When a particle changes the cell, \emph{FIRST} and \emph{LIST} can be updated locally, so that no loop over all particles is needed to update the configuration. The algorithm is thus of order $O\kl{N}$.
 
