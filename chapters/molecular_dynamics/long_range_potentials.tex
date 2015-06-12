@@ -2,7 +2,7 @@
 
 \section{Long Range Potentials}
 
-If a potential decays slower than (or exactly as) $\propto r^{-1}$, the energy integral does not converge. This means that there is no way of cutting the potential at some arbitrary point since this will drastically modify the energy (and therefore the physics) of the problem. The $\frac{1}{r}$ dependency is very common in  physics (e.g. gravitational or electrostatic potential). We will therefore discuss some approaches for dealing with such potentials. We will see three important methods that differs from another in many aspects:
+If a potential decays slower than (or exactly as) $\propto r^{-1}$, the energy integral does not converge. This means that there is no way of cutting the potential at some cut-off distance, since this will drastically modify the energy (and therefore the physics) of the problem. The $\frac{1}{r}$ dependency is very common in  physics (e.g. gravitational or electrostatic potential). We will therefore discuss some approaches for dealing with such potentials. We will see three important methods that differ from another in many aspects:
 
 \begin{itemize}
 \item Ewald summation
@@ -12,34 +12,34 @@ If a potential decays slower than (or exactly as) $\propto r^{-1}$, the energy i
 
 \subsection{Ewald Summation}
 
-Paul Ewald\footnote{Paul Ewald was professor in Stuttgart, Germany, also active during the period antecedent to the second world war. He was elected rector in 1932. However, due to increasing difficulties with the \emph{Dozentenbund} (the professors' association) that was affiliated to the National Socialist party in Germany he had to resigned his position in the spring of 1933. He continued his activities, until Wilhelm Stortz, the new rector, asked Ewald to leave the university. For further reading, see \citet{ewald_interview}} developed the method here presented in a time in which computers were not yet invented. The starting point is how to deal with particles with long range interaction and finite systems sizes. Until now we used periodic boundary conditions for finite system sizes. 
 
-\noindent
-\begin{minipage}{\textwidth}
-\begin{minipage}{.48\textwidth}
-This was only possible because the correlation between the system sides decayed very fast with increasing distance. In the case of long range potentials, the particles are no longer uncorrelated since they are able to interact even at large distances. What we can do is to periodically repeat our system by attaching its own image at its borders. We will consider those repeated system as really existing, and we have to calculate the interaction of the particles in our field of interest with all the other particles in the system. Every cell can be characterized by a vector that goes from the origin of the central system of interest to the origin of the outer cell.
- \end{minipage}\hfill
-\begin{minipage}{.48\textwidth}
+
+%\begin{minipage}{\textwidth}
+%\begin{minipage}{.48\textwidth}
+\begin{wrapfigure}[16]{r}{0.45\textwidth}
+  \vspace{-38pt}
   \centering
-  \includegraphics[width=.9\textwidth]{pics/ewald}
-  \captionof{figure}{In the Ewald summation, the system is repeated  on each side of itself.}
+  \includegraphics[width=.4\textwidth]{pics/ewald}
+  \captionof{figure}{In the Ewald summation, the system is repeated periodically in all directions.}
   \label{fig:ewald}
-\end{minipage}
-\end{minipage}
-\vspace{0.1cm}
+\end{wrapfigure}
+% \end{minipage}\hfill
+%\begin{minipage}{.48\textwidth}
+%\ end{minipage}
+%\end{minipage}
+%\vspace{0.1cm}
 
-\noindent
-The resulting potential is thus the sum of all interactions with the particles in the cells, summed over the number of cells that we have
+Paul Ewald\footnote{Paul Ewald was professor in Stuttgart, Germany, also active during the period antecedent to the second world war. He was elected rector in 1932. However, due to increasing difficulties with the \emph{Dozentenbund} (the professors' association) that was affiliated to the National Socialist party in Germany he had to resigned his position in the spring of 1933. He continued his activities, until Wilhelm Stortz, the new rector, asked Ewald to leave the university. For further reading, see \citet{ewald_interview}} developed the method here presented in a time in which computers were not yet invented. The starting point is how to deal with particles with long range interaction and finite systems sizes. Until now we used periodic boundary conditions for finite system sizes. This was only possible because the correlation with the system boundary decayed very fast with increasing system size. In the case of long range potentials, particles at large distances are no longer uncorrelated. What we can do is to periodically repeat our system by attaching its own image at its borders. We will consider those repeated system as really existing, and we have to calculate the interaction of the particles in our field of interest with all the other particles in the system. Every cell can be characterized by a vector that goes from the origin of the central system of interest to the origin of the outer cell. The resulting potential is thus the sum of all interactions with the particles in the cells, summed over the cells that we have
 \begin{equation}
 V= \frac{1}{2} \sum _{\vec{n}} {     \sum_{i,j}^N {z_i z_j \abs{\vec{r}_{i,j} + \vec{n}}^{-1}}    },
 \label{eq:ewald}
 \end{equation} 
-excluding the summation for  $i=j$ in the case of $\vec{n} = 0$. The Ewald sum is only conditionally converging and converges very slowly. Since Ewald never touched a computer, the terms over which he intended to take the sum ($\vec{n}$) are of infinite number. What one has to do in reality is to truncate the sum at some point and try to estimate the error. Because of the nature of the algorithm, it is only used for few-particles systems. In \citet{dixon} there are several improvements that one can make in order to improve convergence. One possible technique consists of screening the charges out with a Gaussian distribution
+excluding the summation for  $i=j$ in the case of $\vec{n} = 0$. The Ewald sum is only conditionally converging and converges very slowly. Since Ewald never touched a computer, the terms over which he intended to take the sum ($\vec{n}$) was infinite. What one has to do in reality is to truncate the sum at some point and try to estimate the error. Because of the nature of the algorithm, it is only used for few-particles systems. In \citet{dixon} there are several improvements that one can make in order to improve convergence. For the case of point-like charges one possible technique consists of screening the charges with a charge density of Gaussian distribution having opposite sign
 $$
-\rho_i\kl{r} = \frac{z_i \kappa^3}{\pi^{\frac{3}{2}}} \text{exp}\ekl{\kappa^2r^2}
+\rho_i\kl{r} = \frac{z_i \kappa^3}{\pi^{\frac{3}{2}}} \text{exp}\ekl{\kappa^2r^2},
 $$ 
-with some arbitrary smearing factor $\kappa$.
-After having introduced the screening charges one has to cancel their total effect using charges of opposite sign.
+where $\kappa$ is an arbitrary smearing factor.
+After having introduced the screening charges one has to cancel their total effect again by using charges of opposite sign.
 
 \vspace{0.1cm}
 \noindent
@@ -47,16 +47,16 @@ After having introduced the screening charges one has to cancel their total effe
 \begin{minipage}{.98\textwidth}
   \centering
   \includegraphics[width=0.85\textwidth]{pics/ewald_screening}
-  \captionof{figure}{Screening of charges.}
+  \captionof{figure}{Screening of point-like charges. \citep{sim_liq}}
   \label{fig:ewald_screening}
 \end{minipage}
 \end{minipage}
 \vspace{0.1cm}
 
-This way, the result is a very complicated sum that converges faster:
+This way, the result becomes a very complicated sum that converges faster:
 $$
 V=\frac{1}{2} \sum_{i,j}   \kl  {   \sum_{\vec{n}} z_iz_j \frac {\text{erfc}\kl{\kappa \abs{\vec{r}_{i,j}+\vec{n}}}}{\abs{\vec{r}_{i,j} + \vec{n}}}  +  \frac{1}{\pi L^3} \sum_{\vec{k}\ne 0} z_iz_j \frac{4\pi^2}{k^2} \text{exp}\ekl{\frac{-k^2}{4\kappa^2}} \text{cos}\ekl{\vec{k}\vec{r}_{i,j}}    } -\frac{\kappa}{\sqrt{\pi}} \sum_i z^2_i
-$$ with the \emph{error function} $\text{erfc}\kl{x} \equiv \frac{2}{\sqrt{\pi}} \int_x^\infty \text{exp}\ekl{-t^2}\text{dt}$. These formulaes are mentioned here only to show that the Ewald sum is a conceptually easy idea with a lot of implementation difficulties. It can be applied only under certain condition and we therefore break the discussion at this point.
+$$ where $\text{erfc}\kl{x} \equiv \frac{2}{\sqrt{\pi}} \int_x^\infty \text{exp}\ekl{-t^2}\text{dt}$ is the \emph{error function}. These formulas are mentioned here only to show that the Ewald sum is a conceptually easy idea with a lot of implementation difficulties. It can be applied only under certain conditions and we therefore break the discussion at this point.
 
 
 
@@ -67,19 +67,19 @@ $$ with the \emph{error function} $\text{erfc}\kl{x} \equiv \frac{2}{\sqrt{\pi}}
 \noindent
 \begin{minipage}{\textwidth}
 \begin{minipage}{.58\textwidth}
-This method, invented by Eastwood and Hockney \citep{hockney,hockney_book}, is not very well suited for inhomogeneous distributions of particles. The concept is similar to what has been done in \citet{comp_phys} for solving the Poisson equation. We discretize the system using a mesh. In addition, we will now distribute the values of the density of masses confined in the cells on their vertices, in a way that is yet to be discussed. Through the discretized mass distribution we will be able to calculate the potential through \emph{Fast Fourier Transform} (FFT).
+This method, invented by Eastwood and Hockney \citep{hockney,hockney_book}, is very well suited for homogeneous distributions of particles. We discretize the system using a mesh. In addition, we will distribute the values of the density of masses or charges confined in the cells on their vertices, in a way that is yet to be discussed. Through the discretized mass distribution we will be able to calculate the potential using \emph{Fast Fourier Transform} (FFT).
  \end{minipage}\hfill
 \begin{minipage}{.38\textwidth}
   \centering
   \includegraphics[width=\textwidth]{pics/particle_mesh}
-  %\captionof{figure}{Comparison of the precision in the Verlet method and the predictor-corrector of various order.}
+  \captionof{figure}{Illustration of the particle mesh method.}
   \label{fig:particle_mesh}
 \end{minipage}
 \end{minipage}
 \vspace{0.011cm}
 
 \noindent
-Once the potential is known, we can calculate the force exerted on the particles by interpolating the potential on the vertices. It is intuitive that the accuracy of the results depends on the following criteria:
+Once the potential is known, we can calculate the force exerted on the particles by interpolating the potential on the vertices of the mesh. It is intuitive that the accuracy of the results depends on the following criteria:
 \begin{itemize}
 \item Errors should vanish for large distances between the particles.
 \item Momentum should always be conserved (from $\vec{F}_{i,j}=-\vec{F}_{j,i}$).
@@ -92,7 +92,7 @@ The method is not very efficient (unless one is able to adapt it) and time consu
 \item Deviation from the point-like object approximation (e.g. tidal effects).
 \item Complex geometries of the system.
 \end{itemize} 
-In these cases one might consider using the $P^3M$ or $AP^3M$ algorithms. These are presented later on in this chapter. Note that this method is very well behaved for gravitational interaction, which is in fact a force that is contributing even at large distances. Furthermore, gravitational interacting systems are characterized by overall low mass density (smooth variations in the potential) concentrated in pointlike coordinates more or less homogeneously distributed. That is indeed generally the case over very large regions of outer space. 
+In these cases one might consider using the $P^3M$ or $AP^3M$ algorithms. These are presented later on in this chapter. Note that this method is very well behaved for gravitational interactions. Furthermore, gravitational systems are characterized by overall low mass density (smooth variations in the potential) of point-like objects more or less homogeneously distributed over very large regions of outer space. 
 
 \subsubsection*{Implementation:}
 Once we discretized our system we have more than one way to assign values at the vertices:

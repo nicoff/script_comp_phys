@@ -274,7 +274,7 @@ $$
   2\kl{q_1q_3+q_0q_2} &  2\kl{q_2q_3+q_0q_1}  & q_0^2 -q_1^2 -q_2^2 +q_3^2
 \end{pmatrix} 
 $$
-We now have a closed form to represent our rotation, without having to calculate any multiples of $\sin{x}$ and $\cos{x}$. This is by order of magnitudes faster than the expression in \eqref{eq:horr_mat}. It is then a matter of algebra showing that
+We now have a closed form to represent our rotation, without having to calculate any products involving $\sin{x}$ and $\cos{x}$. This is by order of magnitudes faster than the expression in \eqref{eq:horr_mat}. It is a matter of algebra showing that
 
 
 $$
@@ -299,7 +299,8 @@ $$
 \omega^b_z\\
    \end{pmatrix} 
 $$
-Since the world of quaternions and the normal euclidean space are connected by a diffeomorphism, there is always the possibility of calculating the values of the Euler angles if needed (e.g. for a plot):
+%Since the world of quaternions and the normal euclidean space are connected by a diffeomorphism, there is always the possibility of calculating the values of the Euler angles if needed (e.g. for a plot):
+If needed (e.g. for a plot) the Euler angles can be calculated from quaternions:
 
 \begin{align}
 \Phi &= \text{arctan}\ekl{ \frac{2\kl{q_0q_1+q_2q_3}}{ 1- 2\kl{q_1^2+q_2^2}}  }  \\
