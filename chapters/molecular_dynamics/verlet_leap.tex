@@ -1,4 +1,4 @@
-
+      
 \section{Verlet Method}
 
 This integration method was developed by Loup Verlet \citep{verlet} to solve the Newtonian equations in a many-body system. The procedure is simple and related to forward Euler integration. Using a Taylor expansion in (real!) time steps $\Delta t$ 
@@ -168,7 +168,7 @@ where $V_{max}$ is the maximum velocity of a particle.
 
 \clearpage % For the wrapfigure not to go over the page 
 
-The Verlet table can be implemented using two one dimensional vectors LIST and POINT. In LIST sequentially stores all the neighbourhoods, and POINT[i] gives the index to the first particle in the neighbourhood of particle $i$. Thus the neighbourhood of particle $i$ is LIST[POINT[i]], ... , LIST[POINT[i+1]-1].   
+The Verlet table can be implemented using two one dimensional vectors \emph{LIST} and \emph{POINT}. In \emph{LIST} sequentially stores all the neighbourhoods, and \emph{POINT[i]} gives the index to the first particle in the neighbourhood of particle $i$. Thus the neighbourhood of particle $i$ is \emph{LIST[POINT[i]]}, ... , \emph{LIST[POINT[i+1]-1]}.   
 
 
 %%% By Madis %%%
@@ -176,39 +176,50 @@ The Verlet table can be implemented using two one dimensional vectors LIST and P
 
 \subsection{Linked Cell Method}
 
-%Another method is the \emph{linked cell method} \citep{art}.
-The renewal of Verlet tables is still a $O(N^2)$ task, thus the above methods on the whole is still $O(N^2)$. For a truly $O(N)$ algorithm one can implement the \emph{linked cell method} \citep{art}. The simulation domain is discretised using a regular grid spacing $M$, that is larger than the double of cut-off range $r_c$
-
-
 %\end{minipage}\hfill
 %\begin{minipage}{.38\textwidth}
-\begin{wrapfigure}{r}{0.45\textwidth}
-  \vspace{-30pt}
+\begin{wrapfigure}[21]{r}{0.45\textwidth}
+  \vspace{-38pt}
   \centering
-  \includegraphics[width=0.4\textwidth]{pics/linked_cells_block}
-  \captionof{figure}{The cells that contribute to the interaction are shaded. \citep{MIT_numerical_methods}}
+  \includegraphics[width=0.4\textwidth]{pics/linked_cells_block1}
+  \captionof{figure}{Illustration of linked cell schema for the green particle. Only the particles in the same cell as the green particle and in the neighbouring cells (coloured blue) are tested for interactions with the green particle. \citep{MIT_numerical_methods}}
+  %\captionof{figure}{Pla}
   \label{fig:linked_cells}
-  \vspace{-30pt}
+  %\vspace{10pt}
 \end{wrapfigure}
 %\end{minipage}
 %\end{minipage}
 %\vspace{0.1cm}
 
+%Another method is the \emph{linked cell method} \citep{art}.
+The renewal of Verlet tables is still a $O(N^2)$ task, thus the above methods on the whole is still $O(N^2)$. For a truly $O(N)$ algorithm one can implement the \emph{linked cell method} \citep{art}. The simulation domain is discretised using a regular grid spacing $M$, that is larger than the double of cut-off range $r_c$
 
 \[
 M > 2r_c.
 \] 
 
-%\vspace{0.1cm}
-%
-%\begin{minipage}{1.05\textwidth}
-%\begin{minipage}{.6\textwidth}
-\noindent We can now identify the cell in which each particle is located. Due to our choice of $M$, only the interaction to particles in a finite number of cells has to be computed, as particles in further cells will not interact with the respective particle. In d dimensions  there are $3^d$ cells of interest (See Fig \ref{fig:linked_cells}). On average we will have to test $N3^d \frac{N}{M^d}$ particles, many of which will not interact with the particle due to their distance. The advantage is that the update of cell populations can be done very efficiently. 
+\noindent We can now identify the cell in which each particle is located. As $M>2r_c$, each particle can have interactions only with particles in the same or neighbouring cells (See Fig \ref{fig:linked_cells}). In $d$ dimensions there are $3^d$ cells that have to be considered for each particle. On average we will have to test 
 
+\[
+N3^d \frac{N}{\left( \frac{L}{M} \right)^d}
+\] 
 
-To look up which particle is in which cell during the computation, one stores in a vector \emph{FIRST} of length $\kl{\frac{L}{M}}^d$ ($L$ is the system size) for each cell $j$ the index of the (arbitrary) first particle in the cell. If the cell is empty, then \emph{FIRST}$\ekl{j}=0$. In a second vector \emph{LIST} of length $N$, the indices of the next particle in the same cell can be stored. If the particle $i$ is the last one in a cell, then \emph{LIST}$\ekl{i}=0$. See \ref{code:linked_cells} for an example on how to program a loop in C to go through all particles in a cell. When a particle changes the cell, \emph{FIRST} and \emph{LIST} can be updated locally, so that no loop over all particles is needed to update the configuration. The algorithm is thus of order $O\kl{N}$.
+\begin{wrapfigure}[12]{r}{0.45\textwidth}
+  \vspace{-35pt}
+  \centering
+  \includegraphics[width=0.4\textwidth]{pics/linked_cells_example2}
+  %\vspace{5pt}
+  \captionof{figure}{Illustration of \emph{FIRST} and \emph{LIST} vectors in linked cell implementation with 3 cells and 9 particles.}
+  %\captionof{figure}{Pla}
+  \label{fig:linked_cells_example}
+  %\vspace{10pt}
+\end{wrapfigure}
 
-Additionally, this method is well suited for parallelization. One just has to us the grid to divide the system into domains, which are then each handled by a processor. Cells on the borders can be sent to the neighboring processors using MPI (see Fig. \ref{fig:linked_parallelization}).
+\noindent particles, where $L$ is the whole system size. Compared to the brute force loop over $N^2$ particles, the amount of particles in the loop has been reduced by a factor of $\left(\frac{L}{3M} \right)^d$. Unlike Verlet tables, the cell populations can be updated locally, making the linked cell method very efficient.
+
+The implemented can be done using two vectors: \emph{FIRST} with the same length as the number of cells $\left( \frac{L}{M} \right)^d$ and \emph{LIST} with the same length as the number of particles in the simulation $N$. \emph{FIRST[i]} stores the index for the (arbitrary) first particle in the $i$-th cell. If the cell is empty, then \emph{FIRST[i]}$=0$. The indices of next particles are stored in \emph{LIST}. If the particle $i$ is the last one in a cell, then \emph{LIST[i]}$=0$. This is illustrated by Fig \ref{fig:linked_cells_example}. An example of a C code for looping through all particles in a cell is given in \ref{code:linked_cells}. When a particle changes the cell, \emph{FIRST} and \emph{LIST} can be updated locally, so that no loop over all particles is needed to update the configuration. Thus the algorithm is of order $O\kl{N}$.
+  
+Linked cell method is also well suited for parallelization. One just has to us the grid to divide the system into domains, which are then each handled by a processor. Cells on the borders can be sent to the neighbouring processors using MPI (see Fig. \ref{fig:linked_parallelization}).
 
 
 \vspace{0.2cm}
@@ -222,6 +233,7 @@ Additionally, this method is well suited for parallelization. One just has to us
 \end{minipage}
 \end{minipage}
 \vspace{0.1cm}
+
 
 
 
