@@ -1,4 +1,5 @@
 
+
 \section{Dynamics of Composed Particles}
 
 
@@ -37,41 +38,42 @@ There are two main methods applied to such a situation:
 m_i\ddot{\vec{x}}_i = \underbrace{f_i}_{\text{external interaction}} + \underbrace{\vec{g}_i}_{\text{internal constraints}}
 \end{equation}
 
-We can impose constraining forces that will enforce the geometric arrangement of the molecules, e.g. certain distances $d_{1,2}$ and $d_{2,3}$ between atoms. In this case, the constraint forces are proportional to the difference of the actual and the desired distance of the particles. We can define a potential:
+We can impose constraining forces that will enforce the geometric arrangement of the molecules, e.g. certain distances $d_{1,2}$ and $d_{2,3}$ between atoms. We can define a potential: such that the constraint forces are proportional to the difference of the actual and the desired distance of the particles:
 
-$$
-\chi_{1,2} \equiv r^2_{1,2} -d^2_{1,2} \overset{\text{rest}}{=} 0
-$$
-\begin{equation}
-\chi_{2,3} \equiv r^2_{2,3} -d^2_{2,3} \overset{\text{rest}}{=} 0
-\end{equation}
+\begin{align}
+\chi_{1,2} &\equiv r^2_{1,2} -d^2_{1,2} \overset{\text{at rest}}{=} 0 \label{eq:chi1}\\
+\chi_{2,3} &\equiv r^2_{2,3} -d^2_{2,3} \overset{\text{rest}}{=} 0 \label{eq:chi2}
+\end{align}
 
 The equality to zero only holds if the particles have a distance ($r_{ij}$)  equal to the chosen rest position $d_{ij}$. With $r_{ij}\equiv \abs{\vec{r}_{i,j}}$, $\vec{r}_{i,j} \equiv \vec{x}_{i}  -\vec{x}_{j} $ one can obtain
-  $$ \vec{g}_k = \frac{\lambda_{1,2} }{2} \vec{\nabla} _{\vec{x}_k} \chi_{1,2}+
+\begin{equation}
+\vec{g}_k = \frac{\lambda_{1,2} }{2} \vec{\nabla} _{\vec{x}_k} \chi_{1,2}+
                    \frac{\lambda_{2,3} }{2} \vec{\nabla} _{\vec{x}_k} \chi_{2,3}
- $$ we can define the Lagrange multipliers, $\lambda_{1,2}$ and $\lambda_{2,3}$, yet to be determined. We will compute these multipliers by imposing constraints. The force is then obtained by the gradient of the potential:
+\label{eq:g_multip}
+\end{equation}
+and define the Lagrange multipliers, $\lambda_{1,2}$ and $\lambda_{2,3}$, yet to be determined. We will compute these multipliers by imposing the constraints. The force is then obtained by the gradient of the potential (\eqref{eq:g_multip}):
  \begin{equation}
  \Rightarrow \vec{g}_1 = \lambda_{1,2} \vec{r}_{1,2}, \hspace{0.4cm} 
 \vec{g}_2 = \lambda_{2,3} \vec{r}_{2,3} - \lambda_{1,2} \vec{r}_{1,2}, \hspace{0.4cm} 
 \vec{g}_3 = - \lambda_{2,3} \vec{r}_{2,3}.
 \label{eq:lagrange_forces}
 \end{equation}
- This is simply a linear spring with a  yet to be determined spring constant $\lambda$. To obtain the values of $\lambda$, the Verlet algorithm is executed in two steps: first we will compute the forces on the molecules:
+ This is simply a linear spring with a  yet to be determined spring constant $\lambda$. To obtain the values of $\lambda$, the Verlet algorithm is executed in two steps: first we will compute the positions of the atoms without constraint:
  $$
 \tilde{\vec{x}}_i \kl{t+\Delta t} = 2\vec{x}_i  - \vec{x}_i\kl{t-\Delta t} + \Delta t ^2 \frac{f_i}{m_i} 
 $$ 
-and then we correct the value using the above the constraints:
+and then we correct the value using the constraints:
 $$
 \vec{x}_i \kl{t+\Delta t} = \tilde{\vec{x}}_i \kl{t+\Delta t} + \Delta t ^2 \frac{\vec{g}_i}{m_i} 
 $$
-We can insert \eqref{eq:lagrange_forces} into the last expression to find the updated positions:
+We can insert \eqref{eq:lagrange_forces} into this last expression to find the updated positions:
 
 \begin{align}
-\vec{x}_1 \kl{t+\Delta t} &= \tilde{\vec{x}}_1 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{1,2}}{m_2} \vec{r}_{2,3}\kl{t}\\
-\vec{x}_2 \kl{t+\Delta t} &= \tilde{\vec{x}}_2 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{2,3}}{m_1} \vec{r}_{1,2}\kl{t} -  \Delta t ^2 \frac{\lambda_{1,2}}{m_2} \vec{r}_{1,2}\kl{t}\\
-\vec{x}_3 \kl{t+\Delta t} &= \tilde{\vec{x}}_3 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{2,3}}{m_3} \vec{r}_{2,3}\kl{t}
+\vec{x}_1 \kl{t+\Delta t} &= \tilde{\vec{x}}_1 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{1,2}}{m_2} \vec{r}_{2,3}\kl{t} \label{eq:blub1}\\
+\vec{x}_2 \kl{t+\Delta t} &= \tilde{\vec{x}}_2 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{2,3}}{m_1} \vec{r}_{1,2}\kl{t} -  \Delta t ^2 \frac{\lambda_{1,2}}{m_2} \vec{r}_{1,2}\kl{t} \label{eq:blub2} \\
+\vec{x}_3 \kl{t+\Delta t} &= \tilde{\vec{x}}_3 \kl{t+\Delta t} + \Delta t ^2 \frac{\lambda_{2,3}}{m_3} \vec{r}_{2,3}\kl{t}\label{eq:blub3}
 \end{align}
-With these expressions, we can obtain now $\lambda_{1,2}$ and $\lambda_{2,3}$ by inserting them into the constraint condition:
+With these expressions, we can obtain now $\lambda_{1,2}$ and $\lambda_{2,3}$ by inserting \eqref{eq:blub1}, \eqref{eq:blub2} and \eqref{eq:blub3} into the constraint condition:
 
 $$
 \abs{\vec{x}_1 \kl{t+\Delta t} - \vec{x}_2 \kl{t+\Delta t}}^2 = d_{1,2}
@@ -89,11 +91,11 @@ $$
 $$
 \abs{      \tilde{  \vec{x}}_2 \kl{t+\Delta t} - \tilde{ \vec{x}}_3 \kl{t+\Delta t} + \Delta t^2 \lambda_{2,3} \kl{\frac{1}{m_2} +\frac{1}{m_3}}\vec{r}_{2,3}\kl{t}  - \Delta t^2 \frac{\lambda_{2,3}}{m_2 \vec{r}_{1,2}\kl{t}}        }^2 = d_{2,3}
 $$
-These expressions can be solved  for $\lambda_{1,2}$ and $\lambda_{2,3}$ that can be then used to calculate the next position $\vec{x}_i\kl{t+\Delta t}$. Depending on the precision needed one can ignore the higher order terms of $\Delta t$.
+These expressions can be solved  for $\lambda_{1,2}$ and $\lambda_{2,3}$ and then used to calculate the next position $\vec{x}_i\kl{t+\Delta t}$. Depending on the precision needed one can ignore the higher order terms of $\Delta t$.
 
 
 \subsection{Rigid Bodies}
-In the case of a rigid body (an object in which the distances of the particles composing it remain constant), particle motion can be split into translation of the center of mass and rotation of the body: the center of mass
+In the case of a rigid body (an object in which the distances of the particles composing it remain constant), particle motion can be split into translation of the center of mass and rotation of the body around the center of mass
 \begin{equation}
 M\vec{x}_{cm} \equiv \sum_{i=1}^n{\vec{x}_im_i}
 \hspace{0.4cm}\text{with}\hspace{0.4cm} 
@@ -110,7 +112,7 @@ M\ddot{\vec{x}}_{cm} = \sum_{i=1}^n{f_i} \equiv f_{com}
 \end{equation}
 with $\vec{d}_i \equiv \vec{x}_i - \vec{x}_{cm}$.
 
-In two dimensions  the rotation always points in the direction of the normal vector of the plane. There are therefore only three degrees of freedom: two translational and one rotational. In three dimensions there are six degrees of freedom. We well first introduce the two-dimensional case and then generalize to the three-dimensional case.
+In two dimensions  the rotation axis always points in the direction of the normal vector of the plane. There are therefore only three degrees of freedom: two translational and one rotational. In three dimensions there are six degrees of freedom. We well first introduce the two-dimensional case and then generalize it to the three-dimensional case.
 
 \subsubsection*{2D:}
 In 2D,  the moment of inertia and the torque are given by
@@ -127,14 +129,14 @@ I\dot{\omega} = T.
 \label{eq:eom_rot}
 \end{equation}
 
-We can calculate the time evolution of the rotation angle $\phi$ by applying the Verlet algorithm to the variable $\phi\kl{t}$:
+We can calculate the time evolution of the rotation angle $\phi$ by applying the Verlet algorithm to the angle $\phi\kl{t}$:
 $$
 \phi\kl{t+\Delta t} = 2 \phi\kl{t} -\phi\kl{t-\Delta t} + \Delta t^2 \underbrace{ \frac{T\kl{t}}{I}}_{=\dot{\vec{\omega}}}
 $$
  $$
 \vec{x}\kl{t+\Delta t} = 2 \vec{x}\kl{t} -\vec{x}\kl{t-\Delta t} + \Delta t^2 M^{-1} \sum_{j\in A} {f_j\kl{t}}
  $$
- where the torque can be calculated summing over all the torques in the body: $T\kl{t} = \sum_{j\in A} \ekl{    f^y_j\kl{t} d^x_j\kl{t} -  f^x_j\kl{t} d^y_j\kl{t}     }$. 
+ where the total torque can be calculated summing over all the torques acting on the body: $T\kl{t} = \sum_{j\in A} \ekl{    f^y_j\kl{t} d^x_j\kl{t} -  f^x_j\kl{t} d^y_j\kl{t}     }$. 
  
 
 \subsubsection*{3D:}
@@ -153,7 +155,7 @@ where $\mat{I}$ is the \emph{tensor of inertia}. The tensor of inertia describes
 $$
 \mat{I} = \sum _{i=1}^n {m_i \kl{  \vec{d}_i^{\,\,T}  \bigotimes    \vec{d}_i   -\vec{d}_i^{\,\,2} \vec{l}\,\,    }       }
 $$
- This tensor can be brought into a diagonal form by transforming the coordinate system into a body-fixed coordinate system with origin in the center of mass and basis vectors pointing in the directions of the eigenvectors of the tensor. The basis transformation can be written with a matrix $\mat{A}$:
+ This tensor can be brought into a diagonal form by transforming the coordinate system into a body-fixed coordinate system with origin in the center of mass and basis vectors pointing in the directions of the eigenvectors of the tensor. The basis transformation can be described by a matrix $\mat{A}$:
  \begin{equation}
 \underbrace{ \vec{e}^{\,\,b} }_{b.c.s.}= \underbrace{ \mat{A}\vec{e}^{\,l} }_{l.c.s.}
 \label{eq:transf_mat}
@@ -170,9 +172,9 @@ $$
 Without derivation, this can be then transformed into a system of equations
 
 \begin{align}
-\dot{\vec{\omega}}_x^b &= \frac{\vec{T}^b_x}{I_{xx}} + \kl{\frac{\mat{I}_{yy}-\mat{I}_{zz}}{\mat{I}_{xx}}   } \vec{\omega}^b_y\vec{\omega}^b_z \\
-\dot{\vec{\omega}}_y^b &= \frac{\vec{T}^b_y}{I_{yy}} + \kl{\frac{\mat{I}_{zz}-\mat{I}_{xx}}{\mat{I}_{yy}}   } \vec{\omega}^b_z\vec{\omega}^b_x \\
-\dot{\vec{\omega}}_z^b &= \frac{\vec{T}^b_z}{I_{zz}} + \kl{  \frac{\mat{I}_{xx}-\mat{I}_{yy}}{\mat{I}_{zz}}   } \vec{\omega}^b_x\vec{\omega}^b_y
+\dot{\vec{\omega}}_x^b &= \frac{\vec{T}^b_x}{I_{xx}} + \kl{\frac{{I}_{yy}-{I}_{zz}}{{I}_{xx}}   } \vec{\omega}^b_y\vec{\omega}^b_z \\
+\dot{\vec{\omega}}_y^b &= \frac{\vec{T}^b_y}{I_{yy}} + \kl{\frac{{I}_{zz}-{I}_{xx}}{{I}_{yy}}   } \vec{\omega}^b_z\vec{\omega}^b_x \\
+\dot{\vec{\omega}}_z^b &= \frac{\vec{T}^b_z}{I_{zz}} + \kl{  \frac{{I}_{xx}-{I}_{yy}}{{I}_{zz}}   } \vec{\omega}^b_x\vec{\omega}^b_y
 \end{align}
 with the tensor of inertia being diagonal in the body frame: 
 $$\mat{I} = \begin{pmatrix}
@@ -180,7 +182,7 @@ $$\mat{I} = \begin{pmatrix}
  0 & I_{yy} & 0 \\
  0 & 0 & I_{zz}  
 \end{pmatrix}. $$ 
-As we can see, the diagonal form of the tensor of inertia comes with the cost of one added term. Together with \eqref{eq:transf_mat} we can compute the angular velocities:
+As we can see, the diagonal form of the tensor of inertia comes with the cost of one added term. Together with Eq. \eqref{eq:transf_mat} we can compute the angular velocities:
 
 $$
 \vec{T}^{\,l} = \sum_{i=1}^n   {\vec{d}_i \times f_i} 
@@ -191,17 +193,17 @@ $$
 
 \begin{align}
 \vec{\omega}^b_x \kl{t+\Delta t}  &= \vec{\omega}^b_x \kl{t} + 
-\Delta t \frac  {\vec{T}^b_x \kl{t} }{I_{xx}} + \Delta t \kl{\frac{\mat{I}_{yy}-\mat{I}_{zz}}{\mat{I}_{xx}}   } \vec{\omega}^b_y\vec{\omega}^b_z \\
+\Delta t \frac  {\vec{T}^b_x \kl{t} }{I_{xx}} + \Delta t \kl{\frac{{I}_{yy}-{I}_{zz}}{{I}_{xx}}   } \vec{\omega}^b_y\vec{\omega}^b_z \\
 \vec{\omega}^b_y \kl{t+\Delta t} &= \vec{\omega}^b_y \kl{t} + 
-\Delta t \frac  {\vec{T}^b_y \kl{t} }{I_{yy}} + \Delta t \kl{\frac{\mat{I}_{zz}-\mat{I}_{xx}}{\mat{I}_{yy}}   } \vec{\omega}^b_z\vec{\omega}^b_x \\
+\Delta t \frac  {\vec{T}^b_y \kl{t} }{I_{yy}} + \Delta t \kl{\frac{{I}_{zz}-{I}_{xx}}{{I}_{yy}}   } \vec{\omega}^b_z\vec{\omega}^b_x \\
 \vec{\omega}^b_z \kl{t+\Delta t} &= \vec{\omega}^b_z \kl{t} + 
-\Delta t \frac  {\vec{T}^b_z \kl{t} }{I_{zz}} + \Delta t \kl{\frac{\mat{I}_{xx}-\mat{I}_{yy}}{\mat{I}_{zz}}   } \vec{\omega}^b_x\vec{\omega}^b_y
+\Delta t \frac  {\vec{T}^b_z \kl{t} }{I_{zz}} + \Delta t \kl{\frac{{I}_{xx}-{I}_{yy}}{{I}_{zz}}   } \vec{\omega}^b_x\vec{\omega}^b_y
 \end{align}
-From these expressions  and \eqref{eq:transf_mat}  one can easily obtain the angular velocity in the laboratory frame:
+From these expressions  and Eq. \eqref{eq:transf_mat}  one can easily obtain the angular velocity in the laboratory frame:
 $$
 \vec{\omega}^l \kl{t+\Delta t} = \mat{A}^T \vec{\omega}^b\kl{t+\Delta t}.
 $$
-Since the particles are moving all the time, the transformation matrix in equation \eqref{eq:transf_mat} is not constant. We therefore have to find an efficient way to determine and update $\mat{A}$ at every step. This can be done using either Euler angles and quaternions. The following will be only a summary of the derivation, since these topics are generally treated in classical mechanics.
+Since the particles are moving all the time, the transformation matrix in equation \eqref{eq:transf_mat} is not constant. We therefore have to find an efficient way to determine and update $\mat{A}$ at every step. This can be done using either Euler angles or quaternions. The following will be only a summary of the derivation, since these topics are generally treated in classical mechanics.
 
 
 
@@ -242,7 +244,7 @@ $$
 \end{pmatrix} .
 $$
 
-The take-home message here is that an arbitrary rotation can assume a very nasty form which is everything but well suited for an efficient implementation. One has to keep in mind that this operation has to be done for every particle and for every time step, making this approach prohibitive for what concerns the time consumption. One can also find analytical relations to the angular velocities
+We can see from here that an arbitrary rotation can assume a very nasty form which is everything but well suited for an efficient implementation. sin and cos are, computationally speaking, very expensive operations. One has to keep in mind that this operation has to be performed for every particle and every time step, making this approach prohibitive for what concerns the time consumption. One can also find relations to the angular velocities
 \begin{align}
 \dot{\Phi} &= -\omega^l_x \frac{\sin{\Phi}\cos{\Theta}}{\sin{\Theta}} + \omega^l_y \frac{\cos{\Phi}\cos{\Theta}}{\sin{\Theta}} + \omega^l_z  \\
 \dot{\Theta} &= -\omega^l_x\cos{\Theta} + \omega^l_y \sin{\Phi}  \\
@@ -263,7 +265,7 @@ q_2 &\equiv \text{sin}\ekl{\frac{\Theta}{2}}  \text{sin}\ekl{\frac{\Phi-\Psi}{2}
 q_3 &\equiv \text{cos}\ekl{\frac{\Theta}{2}}  \text{sin}\ekl{\frac{\Phi+\Psi}{2}} 
 \label{eq:quaternions}
 \end{align}
-we can represent the angles in dependence of our set of quaternions $q_i$. Note that the euclidean norm of $\vec{q}$ equals unity, therefore there are in fact only three degrees of freedom. Skipping the derivation, one can show that
+with $0<q_i<1$ and $\sum_i q_i =1$, we can represent the angles in dependence of a set of quaternions $q_i$. Note that the euclidean norm of $\vec{q}$ equals unity, therefore there are in fact only three degrees of freedom. Skipping the derivation, one can show that
 
 
 $$
@@ -274,7 +276,7 @@ $$
   2\kl{q_1q_3+q_0q_2} &  2\kl{q_2q_3+q_0q_1}  & q_0^2 -q_1^2 -q_2^2 +q_3^2
 \end{pmatrix} 
 $$
-We now have a closed form to represent our rotation, without having to calculate any products involving $\sin{x}$ and $\cos{x}$. This is by order of magnitudes faster than the expression in \eqref{eq:horr_mat}. It is a matter of algebra showing that
+We now have a closed form to represent our rotation, without having to calculate any multiples of $\sin{x}$ and $\cos{x}$. This is by order of magnitudes faster than the expression in \eqref{eq:horr_mat}. It is then a matter of algebra showing that
 
 
 $$
@@ -299,8 +301,7 @@ $$
 \omega^b_z\\
    \end{pmatrix} 
 $$
-%Since the world of quaternions and the normal euclidean space are connected by a diffeomorphism, there is always the possibility of calculating the values of the Euler angles if needed (e.g. for a plot):
-If needed (e.g. for a plot) the Euler angles can be calculated from quaternions:
+Since the world of quaternions and the normal euclidean space are connected by a diffeomorphism, there is always the possibility of calculating the values of the Euler angles if needed (e.g. for a plot):
 
 \begin{align}
 \Phi &= \text{arctan}\ekl{ \frac{2\kl{q_0q_1+q_2q_3}}{ 1- 2\kl{q_1^2+q_2^2}}  }  \\
@@ -316,6 +317,10 @@ Mind that there is no need of calculating the Euler angles at each integration s
 \item Obtain $\omega^b\kl{t+\Delta t}$ (in quaternion representation).
 \item Integrate the equation of motions (remaining in the quaternion representation).
 \end{itemize}
+
+
+
+
 
 
 
