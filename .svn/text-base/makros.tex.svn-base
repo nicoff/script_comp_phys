@@ -1,0 +1,155 @@
+% $Id: makros.tex 1131 2008-09-29 20:25:00Z doerr $
+
+
+% Macro zum kommentieren
+
+\newcommand{\comm}[1]{\begin{comment} #1 \end{comment}}
+
+
+
+% Macros zum vereinfachen von partiellen und vollständigen
+% Ableitungen
+\newcommand{\pder}[2]{\ensuremath\frac{\partial #1}{\partial #2}}
+\newcommand{\der}[2]{\ensuremath{\frac{\text{d} #1}{\text{d} #2}}}
+
+\newcommand{\pdder}[2]{\ensuremath\frac{\partial^2 #1}{\partial #2 ^2}}
+\newcommand{\dder}[2]{\ensuremath{\frac{\text{d}^2 #1}{\text{d} #2 ^2}}}
+
+\newcommand{\fixme}[1]{\textcolor{red}{(#1)}%
+  \marginpar{\textcolor{red}{Fix Me!}}%
+%  \pdfmarginnote[bla]{#1}
+}
+
+\newcommand{\todo}[1]{\textcolor{blue}{(#1)}%
+  \marginpar{\textcolor{blue}{Todo}}%
+%  \pdfmarginnote[bla]{#1}
+}
+
+        
+
+% neues Macro für h-quer. Ließt sich besser als hbar
+\newcommand{\hquer}{\ensuremath{\hbar}}
+
+% matritzen und vectoren sind fett, matritzen mit hut
+%\newcommand{\mat}[1]{\ensuremath{\boldsymbol{\mathcal{#1}}}}
+\newcommand{\mat}[1]{\ensuremath{\overset{\leftrightarrow}{#1}}  }   
+%\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{\mathrm{#1}}}}
+
+
+% Differential in Integralen (das 'd' in dt soll nicht
+% kursiv sein
+\newcommand{\dif}[1]{\ensuremath{\text{d}#1}}
+\newcommand{\lint}[4]{\ensuremath{\int\limits_{#1}^{#2}#3\text{d}#4}}
+\newcommand{\lintb}[2]{\ensuremath{\int_{#1}^{#2}}}
+
+% erwartungswert
+\newcommand{\expect}[1]{\ensuremath{\langle #1 \rangle}}
+
+% mathematische symbole
+\newcommand{\rot}{\ensuremath{\text{rot}}}
+\newcommand{\divg}{\ensuremath{\text{div}}}
+\newcommand{\FSR}{\ensuremath{\text{FSR}}}
+\newcommand{\FWHM}{\ensuremath{\text{FWHM}}}
+\newcommand{\kreuz}{\ensuremath{\times}}
+\newcommand{\skalar}{\ensuremath{\cdot}}
+
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\avkl}[1]{\left<#1\right>}
+\newcommand{\mkl}[1]{\left\{#1\right\}}
+\newcommand{\kl}[1]{\ensuremath{\left(#1\right)}}
+\newcommand{\ekl}[1]{\ensuremath{\left[#1\right]}}
+
+\newcommand{\halb}{\ensuremath{\frac{1}{2}}}
+\newcommand{\gwaved}{\emph{gwaved}}
+\newcommand{\ren}{\emph{renac}}
+
+
+% 2x1 spaltenvektor mit klammern
+\newcommand{\cvec}[2]{\ensuremath{%
+        \begin{bmatrix}
+        #1\\
+        #2
+        \end{bmatrix}}}
+
+% 3x1 spaltenvektor mit klammern
+\newcommand{\cvvec}[3]{\ensuremath{%
+        \begin{bmatrix}
+        #1\\
+        #2\\
+		#3
+        \end{bmatrix}}}
+
+
+% 4x1 spaltenvektor mit klammern
+\newcommand{\cvvvec}[4]{\ensuremath{%
+        \begin{bmatrix}
+          #1\\
+          #2\\
+          #3\\
+          #4
+        \end{bmatrix}}}
+
+% 4x1 spaltenvektor mit rundenklammern
+\newcommand{\cvvecr}[4]{\ensuremath{%
+        \begin{pmatrix}
+          #1\\
+          #2\\
+          #3\\
+          #4
+        \end{pmatrix}}}
+
+% 2x2 matrix mit klammern
+\newcommand{\pmat}[4]{\ensuremath{%
+        \begin{bmatrix}
+          #1 &  #2\\
+          #3 &  #4
+        \end{bmatrix}}}
+
+
+% osterei
+
+\newcommand{\easteregg}[1]{%
+        \ifdefined\printEasterEggs
+        #1
+        \fi}
+
+\newcommand{\JonesM}{\ensuremath{\mat{J}}}
+
+
+\renewcommand{\Re}{\ensuremath{\text{Re}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Abkürzungen
+
+\newcommand{\fabryperot}{Fa\-bry-P\'{e}rot}
+\newcommand{\fpi}{\fabryperot -Inter\-fer\-ome\-ter}
+
+\newcommand{\gw}{gra\-vi\-ta\-tio\-nal wave }
+\newcommand{\ex}{\ensuremath{\vec{e}_x} }
+\newcommand{\ey}{\ensuremath{\vec{e}_y} }
+\newcommand{\kep}{\emph{Kepler} }
+\newcommand{\eva}{\emph{eva2 } }
+\newcommand{\sun}{\emph{sunday } }
+\newcommand{\cm}{\ding{51}}%
+\newcommand{\xm}{\ding{55}}%
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+\newcommand{\hsp}{\hspace*{0.1cm}}%
+
+
+
+%%% helpers
+% \newcommand{\fixme}[1]{\textcolor{red}{(#1)}%
+%         \marginpar{\textcolor{red}{Fix Me!}}}
+
+        
+
+%%% Local Variables: 
+%%% mode: plain-tex
+%%% TeX-master: "dipse"
+%%% End: 
